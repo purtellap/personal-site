@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ps/paper.dart';
 import 'package:ps/res/resources.dart';
 import 'package:ps/scene.dart';
 import 'dart:math';
@@ -66,6 +67,9 @@ class _BackgroundStackState extends State<BackgroundStack>
       oceanController.forward();
       sunController.forward();
     });});
+    // Future.delayed(Duration(seconds: 30), (){setState(() {
+    //   sunController.reverse();
+    // });});
     Future.delayed(Duration(seconds: 25), (){setState(() {
       cliffController.forward();
     });});
@@ -109,6 +113,7 @@ class _BackgroundStackState extends State<BackgroundStack>
             Scene(cts: cts, controller: sunController, img: Images.sun,),
             Scene(cts: cts, controller: oceanController, img: Images.ocean,),
             Scene(cts: cts, controller: cliffController, img: Images.cliff,),
+            Paper(cts: cts, controller: cliffController, img: Images.paper,),
           ],
         );
       },

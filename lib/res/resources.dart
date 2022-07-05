@@ -30,6 +30,7 @@ class ThemeColors {
 
 class Strings {
   static const String title = 'Austin Purtell\'s Site';
+  static const String resumeLink = 'https://drive.google.com/file/d/1hjyNfq3jHCOkCbVzCs3WKWyiGdpU-lot/view?usp=sharing';
   static const String resume = 'RESUME';
   static const String name = 'AUSTIN PURTELL';
 }
@@ -37,5 +38,6 @@ class Strings {
 class Images {
   static const Image ocean = Image(image: AssetImage('assets/images/ocean.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
   static const Image sun = Image(image: AssetImage('assets/images/sun.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image cliff = Image(image: AssetImage('assets/images/cliffanim.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image cliff = Image(image: AssetImage('assets/images/cliff.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image paper = Image(image: AssetImage('assets/images/paper.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
 }

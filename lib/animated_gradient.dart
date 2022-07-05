@@ -28,6 +28,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
   ];
 
   int index = 0;
+  int duration = 5;
   Color topColor = Colors.black;
   Color bottomColor = Color(0xff010101);
   Alignment begin = Alignment.topCenter;
@@ -44,35 +45,33 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
         body: Stack(
           children: [
             AnimatedContainer(
-              duration: Duration(seconds: 5),
+              duration: Duration(seconds: duration),
               onEnd: () {
                 if(index < colors.length-2) {
-                  setState(() {
-                    index += 1;
-                    bottomColor = colors[index % colors.length];
-                    topColor = colors[(index + 1) % colors.length];
-                  });
+                  if(index == 5){
+                    Future.delayed(Duration(seconds: 10), (){
+                      setState(() {
+                        index += 1;
+                        duration = 20;
+                        bottomColor = colors[index % colors.length];
+                        topColor = colors[(index + 1) % colors.length];
+                      });
+                    });
+                  }
+                  else{
+                    setState(() {
+                      index += 1;
+                      bottomColor = colors[index % colors.length];
+                      topColor = colors[(index + 1) % colors.length];
+                    });
+                  }
+
                 }
               },
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: begin, end: end, colors: [bottomColor, topColor])),
             ),
-            // Align(
-            //   alignment: Alignment.bottomCenter,
-            //   child: Container(
-            //     width: MediaQuery.of(context).size.width,
-            //     height: MediaQuery.of(context).size.width/3,
-            //     decoration: BoxDecoration(
-            //       image: DecorationImage(
-            //         fit: BoxFit.fill,
-            //         filterQuality: FilterQuality.none,
-            //         isAntiAlias: false,
-            //         image: AssetImage('assets/images/ocean1.png'),
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         ));
   }
