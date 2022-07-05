@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ps/paper.dart';
+import 'package:ps/background/paper.dart';
 import 'package:ps/res/resources.dart';
-import 'package:ps/scene.dart';
+import 'package:ps/background/scene.dart';
 import 'dart:math';
 
-import 'package:ps/stars.dart';
+import 'package:ps/background/stars.dart';
 
 class BackgroundStack extends StatefulWidget {
   const BackgroundStack({Key? key, required this.isGame}) : super(key: key);
@@ -110,10 +110,10 @@ class _BackgroundStackState extends State<BackgroundStack>
               opacity: visibility ? 1.0 : 0.0,
               duration: Duration(seconds: 15),
               child: Stars(cts: cts, controllers: controllers, ys: xs,colors: cs,)),
-            Scene(cts: cts, controller: sunController, img: Images.sun,),
-            Scene(cts: cts, controller: oceanController, img: Images.ocean,),
-            Scene(cts: cts, controller: cliffController, img: Images.cliff,),
-            Paper(cts: cts, controller: cliffController, img: Images.paper,),
+            Scene(cts: cts, controller: sunController, img: Images.sun, offset: 3.6,),
+            Scene(cts: cts, controller: oceanController, img: Images.ocean, offset: 3.6),
+            Scene(cts: cts, controller: cliffController, img: Images.cliff, offset: 6),
+            Paper(cts: cts, controller: cliffController, img: Images.paper),
           ],
         );
       },

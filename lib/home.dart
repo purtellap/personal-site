@@ -1,8 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ps/animated_gradient.dart';
-import 'package:ps/background.dart';
-import 'package:ps/project_items.dart';
+import 'package:ps/util/animated_gradient.dart';
+import 'package:ps/background/background.dart';
 import 'package:ps/res/resources.dart';
 
 // class Home extends StatefulWidget {

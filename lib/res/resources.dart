@@ -11,6 +11,7 @@ class Dimens {
   static const double splashRadius = 24;
   static const int sceneHeight = 512;
   static const int sceneWidth = 1536;
+  static const int mobileView = 900;
 }
 
 class ThemeColors {

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ps/res/resources.dart';
-import 'package:ps/url.dart';
+import 'package:ps/util/url.dart';
 
 class Paper extends StatelessWidget {
   final Size cts;
@@ -16,13 +16,22 @@ class Paper extends StatelessWidget {
     double top = cts.height;
     double widthS = cts.width;
     double heightS = widthS / ratio;
+    double left = widthS/14;
+
+    if(cts.width < Dimens.mobileView){
+      widthS = cts.width * 2;
+      heightS = widthS / ratio;
+      left = 24;
+    }
+
     double size = widthS/32;
+
     return PositionedTransition(
       rect: RelativeRectTween(
         begin: RelativeRect.fromSize(
             Rect.fromLTWH(0, top, size, size), cts),
         end: RelativeRect.fromSize(
-            Rect.fromLTWH(widthS/14, top-heightS/1.8, size, size), cts),
+            Rect.fromLTWH(left, top-heightS/1.8, size, size), cts),
       ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
       child: FittedBox(child: GestureDetector(
         onTap: (){
