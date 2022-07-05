@@ -13,7 +13,11 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
     Color(0xff2b2f77),
     Color(0xff483475),
     Color(0xffc4595f),
-    Color(0xfff89c69)
+    Color(0xfff89c69),
+    // Color(0xffc4595f),
+    // Color(0xff483475),
+    // Color(0xff2b2f77),
+    // Color(0xff141852),
   ];//.reversed.toList();
 
   List<Alignment> alignments = [

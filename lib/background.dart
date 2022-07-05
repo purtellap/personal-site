@@ -23,8 +23,16 @@ class _BackgroundStackState extends State<BackgroundStack>
   List<AnimationController> controllers = [];
   bool visibility = true;
 
-  late final AnimationController sceneController = AnimationController(
+  late final AnimationController oceanController = AnimationController(
     duration: const Duration(seconds: 10),
+    vsync: this,);
+
+  late final AnimationController sunController = AnimationController(
+    duration: const Duration(seconds: 10),
+    vsync: this,);
+
+  late final AnimationController cliffController = AnimationController(
+    duration: const Duration(seconds: 5),
     vsync: this,);
 
   @override
@@ -32,7 +40,9 @@ class _BackgroundStackState extends State<BackgroundStack>
     if(controllers.isNotEmpty){
       for (AnimationController c in controllers) {c.dispose();}
     }
-    sceneController.dispose();
+    oceanController.dispose();
+    sunController.dispose();
+    cliffController.dispose();
     super.dispose();
   }
 
@@ -53,7 +63,11 @@ class _BackgroundStackState extends State<BackgroundStack>
       visibility = false;
     });});
     Future.delayed(Duration(seconds: 20), (){setState(() {
-      sceneController.forward();
+      oceanController.forward();
+      sunController.forward();
+    });});
+    Future.delayed(Duration(seconds: 25), (){setState(() {
+      cliffController.forward();
     });});
 
     List<Color> cs = [];
@@ -92,7 +106,9 @@ class _BackgroundStackState extends State<BackgroundStack>
               opacity: visibility ? 1.0 : 0.0,
               duration: Duration(seconds: 15),
               child: Stars(cts: cts, controllers: controllers, ys: xs,colors: cs,)),
-            Scene(cts: cts, controller: sceneController, img: Images.ocean,),
+            Scene(cts: cts, controller: sunController, img: Images.sun,),
+            Scene(cts: cts, controller: oceanController, img: Images.ocean,),
+            Scene(cts: cts, controller: cliffController, img: Images.cliff,),
           ],
         );
       },

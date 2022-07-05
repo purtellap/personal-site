@@ -35,5 +35,7 @@ class Strings {
 }
 
 class Images {
-  static const Image ocean = Image(image: AssetImage('assets/images/oceananim.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image ocean = Image(image: AssetImage('assets/images/ocean.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image sun = Image(image: AssetImage('assets/images/sun.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image cliff = Image(image: AssetImage('assets/images/cliffanim.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
 }
