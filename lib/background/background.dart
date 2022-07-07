@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ps/background/paper.dart';
-import 'package:ps/res/resources.dart';
+import 'package:ps/res/res.dart';
 import 'package:ps/background/scene.dart';
 import 'dart:math';
 
@@ -19,8 +19,8 @@ class _BackgroundStackState extends State<BackgroundStack>
     with TickerProviderStateMixin {
 
   int numStars = 70;
-  int starMinSpeed = 30;
-  int starMaxSpeed = 30;
+  int starMinSpeed = 20; // 30
+  int starMaxSpeed = 20; // 30
   List<AnimationController> controllers = [];
   bool visibility = true;
 
@@ -60,19 +60,24 @@ class _BackgroundStackState extends State<BackgroundStack>
         controllers.add(a);
       }
     }
-    Future.delayed(Duration(seconds: 10), (){setState(() {
+    // stars disappear // 10
+    Future.delayed(Duration(seconds: 8), (){setState(() {
       visibility = false;
     });});
-    Future.delayed(Duration(seconds: 20), (){setState(() {
+    //background (furthest parallax) appears // 20
+    Future.delayed(Duration(seconds: 12), (){setState(() {
       oceanController.forward();
       sunController.forward();
     });});
+    //background (closest parallax) appears // 25
+    Future.delayed(Duration(seconds: 17), (){setState(() {
+      cliffController.forward();
+    });});
+
+    //sun sets
     // Future.delayed(Duration(seconds: 30), (){setState(() {
     //   sunController.reverse();
     // });});
-    Future.delayed(Duration(seconds: 25), (){setState(() {
-      cliffController.forward();
-    });});
 
     List<Color> cs = [];
     List<Color> colors = [Color(0xaaffffff), Color(0x80ffffff)];
@@ -108,7 +113,7 @@ class _BackgroundStackState extends State<BackgroundStack>
           children: <Widget>[
             AnimatedOpacity(
               opacity: visibility ? 1.0 : 0.0,
-              duration: Duration(seconds: 15),
+              duration: Duration(seconds: 10), // 15
               child: Stars(cts: cts, controllers: controllers, ys: xs,colors: cs,)),
             Scene(cts: cts, controller: sunController, img: Images.sun, offset: 3.6,),
             Scene(cts: cts, controller: oceanController, img: Images.ocean, offset: 3.6),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../res/res.dart';
+
 class AnimatedGradient extends StatefulWidget {
   @override
   _AnimatedGradientState createState() => _AnimatedGradientState();
@@ -7,6 +9,7 @@ class AnimatedGradient extends StatefulWidget {
 
 class _AnimatedGradientState extends State<AnimatedGradient> {
   final List<Color> colors = [
+    Colors.black,
     Colors.black,
     Color(0xff070b34),
     Color(0xff141852),
@@ -28,7 +31,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
   ];
 
   int index = 0;
-  int duration = 5;
+  int duration = Dimens.gradientDuration;
   Color topColor = Colors.black;
   Color bottomColor = Color(0xff010101);
   Alignment begin = Alignment.topCenter;
@@ -48,7 +51,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
               duration: Duration(seconds: duration),
               onEnd: () {
                 if(index < colors.length-2) {
-                  if(index == 5){
+                  if(index == Dimens.openingGradientsNum){
                     Future.delayed(Duration(seconds: 10), (){
                       setState(() {
                         index += 1;

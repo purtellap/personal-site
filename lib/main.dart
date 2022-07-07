@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:ps/res/resources.dart';
+import 'package:ps/res/res.dart';
 
 import 'home.dart';
 
@@ -25,6 +25,7 @@ class PersonalSite extends StatelessWidget {
           builder: (context){
             return MaterialApp(
               title: Strings.title,
+              debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 brightness: Brightness.light,

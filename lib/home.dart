@@ -1,63 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:ps/util/animated_gradient.dart';
 import 'package:ps/background/background.dart';
-import 'package:ps/res/resources.dart';
+import 'package:ps/res/res.dart';
 
-// class Home extends StatefulWidget {
-//
-//   @override
-//   State<Home> createState() => _HomeState();
-// }
-//
-// class _HomeState extends State<Home> {
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     ScrollController controller = ScrollController();
-//
-//     @override
-//     void initState() {
-//       super.initState();
-//       controller.jumpTo(controller.position.maxScrollExtent);
-//     }
-//
-//     return Scaffold(
-//       backgroundColor: Colors.transparent,
-//       body: Stack(
-//         children: [
-//         Stack(
-//           children: [
-//             SingleChildScrollView(
-//               controller: controller,
-//               child: Container(
-//                 decoration: BoxDecoration(
-//                   gradient: LinearGradient(
-//                     begin: Alignment.topCenter,
-//                     end: FractionalOffset.bottomCenter,
-//                     colors: [Colors.black, Color(0xff070b34), Color(0xff141852), Color(0xff2b2f77), Color(0xff483475),
-//                       Color(0xffc4595f), Color(0xfff89c69)],
-//                     // stops: [0, 0.25, 0.5, 0.75, 1],
-//                     stops: [0, 0.2, 0.44, 0.64, 0.8, 0.92, 1],
-//                   ),
-//                 ),
-//                 child: Column(
-//                   mainAxisSize: MainAxisSize.min,
-//                   children: List.generate(100, (i) {
-//                     return ListTile(
-//                       title: SizedBox(),
-//                     );
-//                   }).toList(),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class Home extends StatefulWidget {
 
@@ -66,12 +12,49 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool visible = false;
+  bool backgroundVisible = false;
+  final AudioPlayer musicPlayer = AudioPlayer();
+  final AudioPlayer oceanPlayer = AudioPlayer();
+  bool isMuted = true;
+  final double oceanAudioVolume = 0.05;
+  final double musicAudioVolume = 0.12;
+  bool isOcean = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setAudio();
+  }
+
+  Future setAudio() async {
+    musicPlayer.setAsset('assets/audio/ambient.mp3');
+    musicPlayer.setLoopMode(LoopMode.all);
+    musicPlayer.setVolume(musicAudioVolume);
+    oceanPlayer.setAsset('assets/audio/gentle.mp3');
+    oceanPlayer.setLoopMode(LoopMode.all);
+    oceanPlayer.setVolume(0);
+    Future.delayed(Duration(seconds: Dimens.totalGradientDuration), (){
+      setState(() {
+        isOcean = true;
+        if(!isMuted){
+          oceanPlayer.play();
+        }
+      });
+    });
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    musicPlayer.dispose();
+    oceanPlayer.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 1), (){setState(() {
-      visible = true;
+      backgroundVisible = true;
     });});
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -80,8 +63,42 @@ class _HomeState extends State<Home> {
           AnimatedGradient(),
           AnimatedOpacity(
             duration: Duration(seconds: 5),
-            opacity: visible ? 1.0 : 0.0,
+            opacity: backgroundVisible ? 1.0 : 0.0,
             child: BackgroundStack(isGame: true)),
+          Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: () async {
+                setState(() {
+                  isMuted = !isMuted;
+                });
+                if(!isMuted && !musicPlayer.playing){
+                  musicPlayer.play();
+                }
+                else if(!isMuted){
+                  musicPlayer.setVolume(musicAudioVolume);
+                }
+                else{
+                  musicPlayer.setVolume(0);
+                }
+                if(!isMuted){
+                  oceanPlayer.setVolume(oceanAudioVolume);
+                  if(isOcean && !oceanPlayer.playing){
+                    oceanPlayer.play();
+                  }
+                }
+                else{
+                  oceanPlayer.setVolume(0);
+                }
+              },
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Icon(isMuted ? Icons.volume_off : Icons.volume_up, color: Color(0x33ffffff),)),
+              ),
+            )
+          )
         ],
       ),
     );

@@ -12,6 +12,10 @@ class Dimens {
   static const int sceneHeight = 512;
   static const int sceneWidth = 1536;
   static const int mobileView = 900;
+
+  static const int gradientDuration = 3; // 5
+  static const int openingGradientsNum = 6;
+  static const int totalGradientDuration = gradientDuration * openingGradientsNum;
 }
 
 class ThemeColors {
@@ -30,10 +34,39 @@ class ThemeColors {
 }
 
 class Strings {
+
   static const String title = 'Austin Purtell\'s Site';
   static const String resumeLink = 'https://drive.google.com/file/d/1hjyNfq3jHCOkCbVzCs3WKWyiGdpU-lot/view?usp=sharing';
-  static const String resume = 'RESUME';
-  static const String name = 'AUSTIN PURTELL';
+
+  // Dialogue
+  static const String talk = 'TALK';
+  static const String ask = 'ASK QUESTION';
+
+  static const List<String> talks = [
+    'Hello.',
+    'Ah, to be free...',
+    '\"Be a philosopher; but, amidst all your philosophy, be still a man\"',
+    'I trade crypto as a hobby',
+    'One day I want to live on a boat',
+    'Don\'t take life so seriously',
+    'I was a collegiate level rocket league player for a time',
+    'Almost there...',
+    'It\'s peaceful out here',
+    'Good skimboarding down there',
+    'Whitewater rafting is an intense summer job',
+  ];
+
+  static const List<String> questions = [
+    'Stuff you like to do?',
+    'Interests?',
+    'Life Goals?',
+  ];
+
+  static const List<String> answers = [
+    'I like to learn and experience new things',
+    'Outdoors, Gaming, Crypto, Astronomy, Youtube',
+    'Explore the world, help the environment, have fun',
+  ];
 }
 
 class Images {

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ps/res/resources.dart';
+import 'package:ps/res/res.dart';
 import 'package:ps/util/url.dart';
 
 class Paper extends StatelessWidget {
