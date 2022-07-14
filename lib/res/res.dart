@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-class Keys {
-  static const String THEME_PREF = 'themePref';
-  static const String ACCENT_PREF = 'accentPref';
-  static const String ACCOUNTS_PREF = 'accountsList';
-}
-
 class Dimens {
   static const int borderRadius = 16;
   static const double splashRadius = 24;
@@ -39,22 +33,22 @@ class Strings {
   static const String resumeLink = 'https://drive.google.com/file/d/1hjyNfq3jHCOkCbVzCs3WKWyiGdpU-lot/view?usp=sharing';
 
   // Dialogue
-  static const String talk = 'TALK';
-  static const String ask = 'ASK QUESTION';
+  static const String talk = '. . .';
+  static const String ask = '???';
 
-  static const List<String> talks = [
+  static List<String> talks = [
     'Hello.',
     'Ah, to be free...',
-    '\"Be a philosopher; but, amidst all your philosophy, be still a man\"',
-    'I trade crypto as a hobby',
-    'One day I want to live on a boat',
-    'Don\'t take life so seriously',
-    'I was a collegiate level rocket league player for a time',
+    '\"Be a philosopher; but, amidst all your philosophy, be still a man.\"',
+    'I trade crypto as a hobby.',
+    'One day I want to live on a boat.',
+    'Don\'t take life so seriously.',
+    'I was a collegiate level rocket league player for a time.',
     'Almost there...',
-    'It\'s peaceful out here',
-    'Good skimboarding down there',
-    'Whitewater rafting is an intense summer job',
-  ];
+    'It\'s peaceful out here.',
+    'Good skimboarding down there...',
+    'Whitewater rafting is an intense summer job.',
+  ]..shuffle();
 
   static const List<String> questions = [
     'Stuff you like to do?',
@@ -70,8 +64,17 @@ class Strings {
 }
 
 class Images {
-  static const Image ocean = Image(image: AssetImage('assets/images/ocean.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image sun = Image(image: AssetImage('assets/images/sun.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image cliff = Image(image: AssetImage('assets/images/cliff.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image paper = Image(image: AssetImage('assets/images/paper.gif'),  filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image ocean = Image(image: AssetImage('assets/images/ocean.gif'),
+      filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image sun = Image(image: AssetImage('assets/images/sun.gif'),
+      filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image cliff = Image(image: AssetImage('assets/images/cliff.gif'),
+      filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image paper = Image(image: AssetImage('assets/images/paper.gif'),
+      filterQuality: FilterQuality.none, isAntiAlias: false);
+}
+
+class TextStyles{
+  static const TextStyle dialog = TextStyle(color: Colors.black, fontSize: 18,
+      fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100 );
 }

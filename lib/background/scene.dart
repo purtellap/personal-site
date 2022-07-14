@@ -8,8 +8,8 @@ class Scene extends StatelessWidget {
   final Size cts;
   final AnimationController controller;
   final Image img;
-  final double offset;
-  const Scene({Key? key, required this.cts, required this.controller, required this.img, required this.offset}) : super(key: key);
+  final double mobileOffset;
+  const Scene({Key? key, required this.cts, required this.controller, required this.img, required this.mobileOffset}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class Scene extends StatelessWidget {
     if(cts.width < Dimens.mobileView){
       width = cts.width * 2;
       height = width / ratio;
-      left = -width/offset;
+      left = -width/mobileOffset;
     }
 
     return PositionedTransition(
