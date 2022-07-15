@@ -81,20 +81,20 @@ class TalkDialogue extends StatelessWidget {
     double left = widthS/2.75;
 
     double w = widthS;
-    double h = 148;
+    double h = 144;
 
     double top = cts.height - ((cts.width/(Dimens.sceneWidth/Dimens.sceneHeight))/1.5); // regular
     if(cts.width < Dimens.mobileView){
       top = cts.height - ((cts.width * 2/(Dimens.sceneWidth/Dimens.sceneHeight))/1.5);
     }
 
+    double fontSize = min(12 + w/200, 30);
+
     DialogueProvider p = context.read<DialogueProvider>();
-    Widget dialogueText = p.fixedAnim ? new TypingText(s: p.getCurrentTalk(), fontSize: min(12 + w/200, 30),) : SizedBox();
+    Widget dialogueText = p.fixedAnim ? new TypingText(s: p.getCurrentTalk(), fontSize: fontSize,) : SizedBox();
 
-    Container boxText = Container(child: Text(p.getCurrentTalk(), style: TextStyle(color: Colors.transparent, fontSize: min(12 + w/200, 30),
-        fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100 )),);
-
-    Widget dialogueBox = p.fixedAnim ? boxText : SizedBox();
+    Text boxText = Text(p.getCurrentTalk(), style: TextStyle(color: Colors.transparent, fontSize: fontSize,
+        fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100 ));
 
     return PositionedTransition(
       rect: RelativeRectTween(
@@ -103,63 +103,44 @@ class TalkDialogue extends StatelessWidget {
         end: RelativeRect.fromSize(
             Rect.fromLTWH(0, top - h, w, h), cts),
       ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
-      child: Container(color: Color(0x00ffffff), width: w,
-        child: AnimatedOpacity(
-          opacity: p.getIsTalkVisible() ? 1.0 : 0.0,
-          duration: Duration(milliseconds: p.getIsTalkVisible() ? 0 : 500),
-          onEnd: (){
-            if(!p.getIsTalkVisible()){
-              p.fixTween(false);
-            }
-          },
-          child: Stack(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(width: left, height: 128,),
-                  CustomPaint( //                       <-- CustomPaint widget
-                    size: Size(20, 20),
-                    painter: SpeechBubble(),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(width: left,),
-                  Flexible(
-                    child: Container(
-                      height: 128,
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(24))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: dialogueBox,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: left/2,),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(width: left,),
-                  Flexible(
-                    child: Container(
-                      height: 128,
-                      decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(24))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: dialogueText,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: left/2,),
-                ],
-              ),
-            ],
-          ),
+      child: AnimatedOpacity(
+        opacity: p.getIsTalkVisible() ? 1.0 : 0.0,
+        duration: Duration(milliseconds: p.getIsTalkVisible() ? 0 : 500),
+        onEnd: (){
+          if(!p.getIsTalkVisible()){
+            p.fixTween(false);
+          }
+        },
+        child: Stack(
+          alignment: Alignment.bottomLeft,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(width: left,),
+                CustomPaint( //                       <-- CustomPaint widget
+                  size: Size(20, 20),
+                  painter: SpeechBubble(),
+                ),
+                SizedBox(width: left/2,),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(width: left,),
+                DialogueBox(color: Colors.white,
+                  child: Stack(
+                    children: [
+                      p.fixedAnim ? boxText : SizedBox(),
+                      p.fixedAnim ? dialogueText : SizedBox()
+                    ],
+                  )
+                ),
+                SizedBox(width: left/2,),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -203,5 +184,24 @@ class SpeechBubble extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter old) {
     return false;
+  }
+}
+
+class DialogueBox extends StatelessWidget {
+  const DialogueBox({Key? key, required this.child, required this.color}) : super(key: key);
+  final Widget child;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Container(
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(24))),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: child,
+        ),
+      ),
+    );
   }
 }
