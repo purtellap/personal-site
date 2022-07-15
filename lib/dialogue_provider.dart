@@ -30,6 +30,7 @@ class DialogueProvider extends ChangeNotifier{
   }
 
   talk(){
+    toggleInputVisibility();
     if(!_isTalkVisible && !fixedAnim){
       fixTween(true);
       _currentTalk = Strings.talks[_talkCounter];

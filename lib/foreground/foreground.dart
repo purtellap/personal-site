@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ps/dialogue.dart';
 import 'package:ps/foreground/hitbox.dart';
 import 'package:ps/foreground/paper.dart';
 import 'package:ps/res/res.dart';
+
+import '../dialogue_input.dart';
+import '../dialogue_talk.dart';
 
 class ForegroundStack extends StatefulWidget {
   const ForegroundStack({Key? key}) : super(key: key);
@@ -41,7 +43,7 @@ class _ForegroundStackState extends State<ForegroundStack>
           children: <Widget>[
             Paper(cts: cts, controller: controller, img: Images.paper),
             HitBox(cts: cts, controller: controller),
-            //InputDialogue(cts: cts, controller: controller,),
+            InputDialogue(cts: cts, controller: controller,),
             TalkDialogue(cts: cts, controller: controller)
           ],
         );

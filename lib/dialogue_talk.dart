@@ -7,69 +7,6 @@ import 'package:ps/res/res.dart';
 import 'package:ps/util/typing_text.dart';
 import 'dart:ui' as ui;
 
-class InputDialogue extends StatelessWidget {
-  final Size cts;
-  final AnimationController controller;
-  const InputDialogue({Key? key, required this.cts, required this.controller}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double ratio = Dimens.sceneWidth/Dimens.sceneHeight;
-    double top = cts.height;
-    double widthS = cts.width;
-    double heightS = widthS / ratio;
-    double left = widthS/3.5;
-
-    if(cts.width < Dimens.mobileView){
-      widthS = cts.width * 2;
-      heightS = widthS / ratio;
-      left = widthS/6.9;
-    }
-
-    double w = widthS;
-    double h = heightS/6;
-
-    DialogueProvider p = context.read<DialogueProvider>();
-
-    return PositionedTransition(
-      rect: RelativeRectTween(
-        begin: RelativeRect.fromSize(
-            Rect.fromLTWH(0, top + heightS/3, w, h), cts),
-        end: RelativeRect.fromSize(
-            Rect.fromLTWH(0, top - heightS/1.2, w, h), cts),
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
-      child: FittedBox(
-        fit: BoxFit.fill,
-        child: Container(color: Color(0x33ff0000), width: w, height: h,
-          child: AnimatedOpacity(
-            opacity: p.getIsInputVisible() ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 500),
-            child: Row(
-              children: [
-                SizedBox(width: left,),
-                MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(Strings.talk, style: TextStyles.dialog,),
-                    )),
-                SizedBox(width: 48,),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(Strings.ask, style: TextStyles.dialog),
-                  )
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class TalkDialogue extends StatelessWidget {
   final Size cts;
   final AnimationController controller;
@@ -147,6 +84,25 @@ class TalkDialogue extends StatelessWidget {
   }
 }
 
+class DialogueBox extends StatelessWidget {
+  const DialogueBox({Key? key, required this.child, required this.color}) : super(key: key);
+  final Widget child;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Container(
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(24))),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
 class DashedLine extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -184,24 +140,5 @@ class SpeechBubble extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter old) {
     return false;
-  }
-}
-
-class DialogueBox extends StatelessWidget {
-  const DialogueBox({Key? key, required this.child, required this.color}) : super(key: key);
-  final Widget child;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(24))),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: child,
-        ),
-      ),
-    );
   }
 }

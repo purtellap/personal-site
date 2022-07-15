@@ -25,6 +25,8 @@ class HitBox extends StatelessWidget {
     double w = widthS/19;
     double h = heightS/3.9;
 
+    DialogueProvider p = context.read<DialogueProvider>();
+
     return PositionedTransition(
       rect: RelativeRectTween(
         begin: RelativeRect.fromSize(
@@ -34,8 +36,9 @@ class HitBox extends StatelessWidget {
       ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
       child: FittedBox(child: GestureDetector(
         onTap: (){
-          // context.read<DialogueProvider>().toggleInputVisibility();
-          context.read<DialogueProvider>().talk();
+          if(!p.getIsTalkVisible()){
+            context.read<DialogueProvider>().toggleInputVisibility();
+          }
         },
         child: MouseRegion(
             cursor: SystemMouseCursors.click,

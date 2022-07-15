@@ -7,7 +7,6 @@ import 'package:ps/background/background.dart';
 
 import 'audio/audio_manager.dart';
 import 'audio/audio_provider.dart';
-import 'dialogue.dart';
 
 class Home extends StatefulWidget {
 

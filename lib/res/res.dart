@@ -75,6 +75,6 @@ class Images {
 }
 
 class TextStyles{
-  static const TextStyle dialog = TextStyle(color: Colors.black, fontSize: 18,
+  static const TextStyle dialog = TextStyle(color: Colors.white, fontSize: 18,
       fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100 );
 }
