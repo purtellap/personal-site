@@ -6,6 +6,8 @@ class Dimens {
   static const int sceneHeight = 512;
   static const int sceneWidth = 1536;
   static const int mobileView = 900;
+  static const int mobileView2 = 600;
+  static const int mobileLandscape = 420;
 
   static const int gradientDuration = 3; // 5
   static const int openingGradientsNum = 6;

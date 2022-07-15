@@ -16,13 +16,24 @@ class TalkDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     double widthS = cts.width;
     double left = widthS/2.75;
+    double ratio = Dimens.sceneWidth/Dimens.sceneHeight;
 
     double w = widthS;
     double h = 144;
 
-    double top = cts.height - ((cts.width/(Dimens.sceneWidth/Dimens.sceneHeight))/1.5); // regular
+    double top = cts.height - ((cts.width/ratio)/1.5); // regular
     if(cts.width < Dimens.mobileView){
-      top = cts.height - ((cts.width * 2/(Dimens.sceneWidth/Dimens.sceneHeight))/1.5);
+      top = cts.height - ((cts.width * 2/ratio)/1.5);
+      if(cts.width < Dimens.mobileView2){
+        top = cts.height - ((cts.width * 3/ratio)/1.5);
+        left = widthS/2;
+        if(cts.height < Dimens.mobileLandscape){
+          top = cts.height - ((cts.width * 3/ratio)/2.5);
+        }
+      }
+      else if(cts.height < Dimens.mobileLandscape){
+        top = cts.height - ((cts.width * 2/ratio)/2.5);
+      }
     }
 
     double fontSize = min(12 + w/200, 30);
@@ -74,7 +85,7 @@ class TalkDialogue extends StatelessWidget {
                     ],
                   )
                 ),
-                SizedBox(width: left/2,),
+                SizedBox(width: cts.width < Dimens.mobileView2 ? 16 : left/2,),
               ],
             ),
           ],

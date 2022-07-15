@@ -23,6 +23,14 @@ class Scene extends StatelessWidget {
       width = cts.width * 2;
       height = width / ratio;
       left = -width/mobileOffset;
+      if(cts.width < Dimens.mobileView2){
+        width = cts.width * 3;
+        height = width / ratio;
+        left = -width/mobileOffset * 1.1;
+      }
+      if(cts.height < Dimens.mobileLandscape){
+        top = cts.height + height/4.2;
+      }
     }
 
     return PositionedTransition(

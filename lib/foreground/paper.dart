@@ -20,6 +20,14 @@ class Paper extends StatelessWidget {
       widthS = cts.width * 2;
       heightS = widthS / ratio;
       left = 24;
+      if(cts.width < Dimens.mobileView2){
+        widthS = cts.width * 3;
+        heightS = widthS / ratio;
+        left = 24;
+      }
+      if(cts.height < Dimens.mobileLandscape){
+        top = cts.height + heightS/4.2;
+      }
     }
 
     double size = widthS/32;

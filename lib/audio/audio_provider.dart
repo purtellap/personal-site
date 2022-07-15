@@ -8,9 +8,9 @@ class AudioProvider extends ChangeNotifier{
   final AudioPlayer musicPlayer = AudioPlayer();
   final AudioPlayer oceanPlayer = AudioPlayer();
   bool isMuted = true;
-  final double oceanAudioVolume = 0.05;
-  final double musicAudioVolume = 0.12;
-  final double typingAudioVolume = 0.2;
+  final double oceanAudioVolume = 0.08;
+  final double musicAudioVolume = 0.18;
+  final double typingAudioVolume = 0.3;
   bool isOcean = false;
   int typingValue = 0;
 
@@ -70,18 +70,22 @@ class AudioProvider extends ChangeNotifier{
     }
   }
 
-  playTyping(int i){
+  playTyping(int i) {
     if(!isMuted && typingValue < i){
-      AudioPlayer p = AudioPlayer();
-      p.setAsset('assets/audio/b.mp3');
-      p.setLoopMode(LoopMode.off);
-      p.setVolume(typingAudioVolume);
-      p.play();
-
-      Future.delayed(Duration(seconds: (p.duration?.inSeconds ?? 1) + 1), (){
-        p.dispose();
-      });
+      playType();
     }
     typingValue = i;
+  }
+
+  playType() async{
+    AudioPlayer p = AudioPlayer();
+    await p.setAsset('assets/audio/b.mp3');
+    await p.setLoopMode(LoopMode.off);
+    await p.setVolume(typingAudioVolume);
+    await p.play();
+
+    await Future.delayed(Duration(seconds: (p.duration?.inSeconds ?? 1) + 1), () async {
+      p.dispose();
+    });
   }
 }

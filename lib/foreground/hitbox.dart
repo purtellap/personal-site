@@ -20,6 +20,14 @@ class HitBox extends StatelessWidget {
       widthS = cts.width * 2;
       heightS = widthS / ratio;
       left = widthS/6.9;
+      if(cts.width < Dimens.mobileView2){
+        widthS = cts.width * 3;
+        heightS = widthS / ratio;
+        left = widthS/7.8;
+      }
+      if(cts.height < Dimens.mobileLandscape){
+        top = cts.height + heightS/4.2;
+      }
     }
 
     double w = widthS/19;
