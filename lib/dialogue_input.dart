@@ -2,10 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ps/audio/audio_provider.dart';
 import 'package:ps/dialogue_provider.dart';
 import 'package:ps/res/res.dart';
-import 'package:ps/util/typing_text.dart';
-import 'dart:ui' as ui;
 
 class InputDialogue extends StatelessWidget {
   final Size cts;
@@ -20,6 +19,7 @@ class InputDialogue extends StatelessWidget {
     double fontSize = min(12 + w/200, 30);
 
     DialogueProvider p = context.read<DialogueProvider>();
+    AudioProvider a = context.read<AudioProvider>();
     double inputW = fontSize * 16;
     double inputH = fontSize * 3;
 
@@ -44,6 +44,7 @@ class InputDialogue extends StatelessWidget {
                       OptionButton(fontSize: fontSize, s: Strings.talk,
                         onTap: (){
                           p.talk();
+                          //a.playTyping();
                         },
                       ),
                       OptionButton(fontSize: fontSize, s: Strings.ask,
@@ -76,6 +77,7 @@ class QuestionDialogue extends StatelessWidget {
     double fontSize = min(12 + w/200, 30);
 
     DialogueProvider p = context.read<DialogueProvider>();
+    AudioProvider a = context.read<AudioProvider>();
     double inputW = fontSize * 32;
     double inputH = fontSize * 3;
 
@@ -85,6 +87,7 @@ class QuestionDialogue extends StatelessWidget {
         OptionButton(fontSize: fontSize, s: Strings.questions[i],
           onTap: (){
             p.answer(Strings.answers[i]);
+            //a.playTyping();
           }
         )
       );

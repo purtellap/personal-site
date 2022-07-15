@@ -5,7 +5,7 @@ import 'package:ps/foreground/foreground.dart';
 import 'package:ps/util/animated_gradient.dart';
 import 'package:ps/background/background.dart';
 
-import 'audio/audio_manager.dart';
+import 'audio/audio_button.dart';
 import 'audio/audio_provider.dart';
 
 class Home extends StatefulWidget {
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
                       return Stack(
                         children: [
                           ForegroundStack(),
-                          AudioManager(p: audioProvider,),
+                          AudioButton(),
                         ],
                       );
                     }

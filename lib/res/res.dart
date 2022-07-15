@@ -60,7 +60,7 @@ class Strings {
 
   static const List<String> answers = [
     'I like to learn and experience new things.',
-    'Outdoors, Gaming, Crypto, Astronomy, Youtube...',
+    'Outdoors, Crypto, Astronomy, Gaming, Youtube...',
     'Explore the world, help the environment, have fun.',
   ];
 }

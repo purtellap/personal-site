@@ -10,10 +10,19 @@ class AudioProvider extends ChangeNotifier{
   bool isMuted = true;
   final double oceanAudioVolume = 0.05;
   final double musicAudioVolume = 0.12;
+  final double typingAudioVolume = 0.2;
   bool isOcean = false;
+  int typingValue = 0;
 
   init(){
     setAudio();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    musicPlayer.dispose();
+    oceanPlayer.dispose();
   }
 
   Future setAudio() async {
@@ -32,7 +41,47 @@ class AudioProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  // TODO: Set loopmode to off and get the typing playing on a letter by letter basis instead
+
+
   toggleMuted(){
     isMuted = !isMuted;
+    if(isMuted){
+      musicPlayer.setVolume(0);
+      oceanPlayer.setVolume(0);
+    }
+    else{
+      playMusic();
+      playOcean();
+    }
+  }
+
+  playMusic(){
+    musicPlayer.setVolume(musicAudioVolume);
+    if(!musicPlayer.playing){
+      musicPlayer.play();
+    }
+  }
+
+  playOcean(){
+    oceanPlayer.setVolume(oceanAudioVolume);
+    if(isOcean && !oceanPlayer.playing){
+      oceanPlayer.play();
+    }
+  }
+
+  playTyping(int i){
+    if(!isMuted && typingValue < i){
+      AudioPlayer p = AudioPlayer();
+      p.setAsset('assets/audio/b.mp3');
+      p.setLoopMode(LoopMode.off);
+      p.setVolume(typingAudioVolume);
+      p.play();
+
+      Future.delayed(Duration(seconds: (p.duration?.inSeconds ?? 1) + 1), (){
+        p.dispose();
+      });
+    }
+    typingValue = i;
   }
 }
