@@ -36,9 +36,7 @@ class HitBox extends StatelessWidget {
       ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
       child: FittedBox(child: GestureDetector(
         onTap: (){
-          if(!p.getIsTalkVisible()){
-            context.read<DialogueProvider>().toggleInputVisibility();
-          }
+          p.dialogue();
         },
         child: MouseRegion(
             cursor: SystemMouseCursors.click,

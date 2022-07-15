@@ -9,65 +9,108 @@ import 'dart:ui' as ui;
 
 class InputDialogue extends StatelessWidget {
   final Size cts;
-  final AnimationController controller;
-  const InputDialogue({Key? key, required this.cts, required this.controller}) : super(key: key);
+  const InputDialogue({Key? key, required this.cts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double widthS = cts.width;
-    double left = widthS/3;
 
     double w = widthS;
-    double h = 64;
-
-    double top = cts.height - ((cts.width/(Dimens.sceneWidth/Dimens.sceneHeight))/1.5); // regular
-    if(cts.width < Dimens.mobileView){
-      top = cts.height - ((cts.width * 2/(Dimens.sceneWidth/Dimens.sceneHeight))/1.5);
-    }
 
     double fontSize = min(12 + w/200, 30);
 
     DialogueProvider p = context.read<DialogueProvider>();
-    double inputW = fontSize * 8;
+    double inputW = fontSize * 16;
+    double inputH = fontSize * 3;
 
-    return PositionedTransition(
-      rect: RelativeRectTween(
-        begin: RelativeRect.fromSize(
-            Rect.fromLTWH(0, cts.height + h, w, h), cts),
-        end: RelativeRect.fromSize(
-            Rect.fromLTWH(0, top - h, w, h), cts),
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
-      child: FittedBox(
-        fit: BoxFit.fill,
-        child: Container(color: Color(0x00000000), width: w, height: h,
-          child: IgnorePointer(
-            ignoring: !p.getIsInputVisible(),
-            child: AnimatedOpacity(
-              opacity: p.getIsInputVisible() ? 1.0 : 0.0,
-              duration: Duration(milliseconds: p.getIsInputVisible() ? 500 : 100),
-              child: Row(
-                children: [
-                  SizedBox(width: left - inputW/2,),
-                  Container(
-                    width: inputW,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OptionButton(fontSize: fontSize, s: Strings.talk,
-                          onTap: (){
-                            p.talk();
-                          },
-                        ),
-                        OptionButton(fontSize: fontSize, s: Strings.ask,
-                          onTap: (){
-
-                          },
-                        ),
-                      ],
-                    ),
+    return AnimatedPositioned(
+      top: !p.getIsInputVisible() ? cts.height: cts.height - inputH,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeInOut,
+      child: Container(color:  (p.getIsInputVisible() || p.isInputAnimOver) ? Color(0xaa000000) : Colors.transparent, width: w, height: inputH,
+        child: IgnorePointer(
+          ignoring: !p.getIsInputVisible(),
+          child: AnimatedOpacity(
+            opacity: p.getIsInputVisible() ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 500),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: inputW,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      OptionButton(fontSize: fontSize, s: Strings.talk,
+                        onTap: (){
+                          p.talk();
+                        },
+                      ),
+                      OptionButton(fontSize: fontSize, s: Strings.ask,
+                        onTap: (){
+                          p.ask();
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QuestionDialogue extends StatelessWidget {
+  final Size cts;
+  const QuestionDialogue({Key? key, required this.cts}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double widthS = cts.width;
+
+    double w = widthS;
+
+    double fontSize = min(12 + w/200, 30);
+
+    DialogueProvider p = context.read<DialogueProvider>();
+    double inputW = fontSize * 32;
+    double inputH = fontSize * 3;
+
+    List<OptionButton> questions = [];
+    for (int i = 0; i < Strings.questions.length; i++){
+      questions.add(
+        OptionButton(fontSize: fontSize, s: Strings.questions[i],
+          onTap: (){
+            p.answer(Strings.answers[i]);
+          }
+        )
+      );
+    }
+
+    return AnimatedPositioned(
+      top: !p.getIsQuestionVisible() ? cts.height: cts.height - inputH,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeInOut,
+      child: Container(color:  (p.getIsQuestionVisible() || p.isQuestionAnimOver) ? Color(0xaa000000) : Colors.transparent, width: w, height: inputH,
+        child: IgnorePointer(
+          ignoring: !p.getIsQuestionVisible(),
+          child: AnimatedOpacity(
+            opacity: p.getIsQuestionVisible() ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 500),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: inputW,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: questions,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -95,7 +138,7 @@ class _OptionButtonState extends State<OptionButton> {
 
     TextStyle textStyle = TextStyle(color: Colors.white, fontSize: widget.fontSize,
         fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100);
-    TextStyle textStyleHover = TextStyle(color: Colors.black, fontSize: widget.fontSize,
+    TextStyle textStyleHover = TextStyle(color: Color(0xff00ffff), fontSize: widget.fontSize,
         fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100);
 
     return GestureDetector(

@@ -4,8 +4,11 @@ import 'package:ps/res/res.dart';
 class DialogueProvider extends ChangeNotifier{
 
   bool _isInputVisible = false;
+  bool _isQuestionVisible = false;
   bool _isTalkVisible = false;
   bool fixedAnim = false;
+  bool isInputAnimOver = false;
+  bool isQuestionAnimOver = false;
   int _talkCounter = 0;
   String _currentTalk = '';
 
@@ -16,6 +19,17 @@ class DialogueProvider extends ChangeNotifier{
 
   toggleInputVisibility(){
     _isInputVisible = !_isInputVisible;
+    Future.delayed(Duration(seconds: 1), (){
+      isInputAnimOver = !isInputAnimOver;
+    });
+    notifyListeners();
+  }
+
+  toggleQuestionVisibility(){
+    _isQuestionVisible = !_isQuestionVisible;
+    Future.delayed(Duration(seconds: 1), (){
+      isQuestionAnimOver = !isQuestionAnimOver;
+    });
     notifyListeners();
   }
 
@@ -27,6 +41,18 @@ class DialogueProvider extends ChangeNotifier{
   fixTween(bool b){
     fixedAnim = b;
     notifyListeners();
+  }
+
+  // click on hitbox for input -- only if done talking
+  dialogue(){
+    if(!getIsTalkVisible()){
+      if(!_isQuestionVisible){
+        toggleInputVisibility();
+      }
+      else{
+        toggleQuestionVisibility();
+      }
+    }
   }
 
   talk(){
@@ -42,6 +68,22 @@ class DialogueProvider extends ChangeNotifier{
     }
   }
 
+  ask(){
+    toggleInputVisibility();
+    Future.delayed(Duration(seconds: 1), (){
+      toggleQuestionVisibility();
+    });
+  }
+
+  answer(String s){
+    toggleQuestionVisibility();
+    if(!_isTalkVisible && !fixedAnim){
+      fixTween(true);
+      _currentTalk = s;
+      toggleTalkVisibility();
+    }
+  }
+
   String getCurrentTalk(){
     return _currentTalk;
   }
@@ -52,6 +94,10 @@ class DialogueProvider extends ChangeNotifier{
 
   bool getIsTalkVisible(){
     return _isTalkVisible;
+  }
+
+  bool getIsQuestionVisible(){
+    return _isQuestionVisible;
   }
 
 }

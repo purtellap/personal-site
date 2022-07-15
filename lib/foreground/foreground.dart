@@ -43,8 +43,9 @@ class _ForegroundStackState extends State<ForegroundStack>
           children: <Widget>[
             Paper(cts: cts, controller: controller, img: Images.paper),
             HitBox(cts: cts, controller: controller),
-            InputDialogue(cts: cts, controller: controller,),
-            TalkDialogue(cts: cts, controller: controller)
+            TalkDialogue(cts: cts, controller: controller),
+            InputDialogue(cts: cts),
+            QuestionDialogue(cts: cts),
           ],
         );
       },

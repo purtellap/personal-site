@@ -29,12 +29,14 @@ class ThemeColors {
 
 class Strings {
 
-  static const String title = 'Austin Purtell\'s Site';
+  static const String title = 'Austin\'s Site';
   static const String resumeLink = 'https://drive.google.com/file/d/1hjyNfq3jHCOkCbVzCs3WKWyiGdpU-lot/view?usp=sharing';
 
   // Dialogue
-  static const String talk = '. . .';
-  static const String ask = '???';
+  // static const String talk = '. . .';
+  // static const String ask = '???';
+  static const String talk = '[ talk ]';
+  static const String ask = '[ ask ]';
 
   static List<String> talks = [
     'Hello.',
@@ -51,15 +53,15 @@ class Strings {
   ]..shuffle();
 
   static const List<String> questions = [
-    'Stuff you like to do?',
+    'Like to do?',
     'Interests?',
     'Life Goals?',
   ];
 
   static const List<String> answers = [
-    'I like to learn and experience new things',
-    'Outdoors, Gaming, Crypto, Astronomy, Youtube',
-    'Explore the world, help the environment, have fun',
+    'I like to learn and experience new things.',
+    'Outdoors, Gaming, Crypto, Astronomy, Youtube...',
+    'Explore the world, help the environment, have fun.',
   ];
 }
 
