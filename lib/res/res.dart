@@ -9,6 +9,8 @@ class Dimens {
   static const int mobileView2 = 600;
   static const int mobileLandscape = 420;
 
+  static const int sunsetDuration = 80;
+
   static const int gradientDuration = 3; // 5
   static const int openingGradientsNum = 6;
   static const int totalGradientDuration = gradientDuration * openingGradientsNum;
@@ -35,10 +37,11 @@ class Strings {
   static const String resumeLink = 'https://drive.google.com/file/d/1hjyNfq3jHCOkCbVzCs3WKWyiGdpU-lot/view?usp=sharing';
 
   // Dialogue
-  // static const String talk = '. . .';
-  // static const String ask = '???';
   static const String talk = '[ talk ]';
   static const String ask = '[ ask ]';
+
+  static const String end1 = 'You\'re very patient.';
+  static const String end2 = 'Thanks for checking out my website.';
 
   static List<String> talks = [
     'Hello.',
@@ -75,6 +78,8 @@ class Images {
   static const Image cliff = Image(image: AssetImage('assets/images/cliff.gif'),
       filterQuality: FilterQuality.none, isAntiAlias: false);
   static const Image paper = Image(image: AssetImage('assets/images/paper.gif'),
+      filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image moon = Image(image: AssetImage('assets/images/moon.gif'),
       filterQuality: FilterQuality.none, isAntiAlias: false);
 }
 

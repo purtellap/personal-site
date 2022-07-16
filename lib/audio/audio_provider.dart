@@ -41,9 +41,6 @@ class AudioProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  // TODO: Set loopmode to off and get the typing playing on a letter by letter basis instead
-
-
   toggleMuted(){
     isMuted = !isMuted;
     if(isMuted){

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ps/res/res.dart';
 
 
-class Scene extends StatelessWidget {
+class Moon extends StatelessWidget {
   final Size cts;
   final AnimationController controller;
   final Image img;
   final double mobileOffset;
-  const Scene({Key? key, required this.cts, required this.controller,
+  const Moon({Key? key, required this.cts, required this.controller,
     required this.img, required this.mobileOffset}) : super(key: key);
 
   @override
@@ -25,20 +25,20 @@ class Scene extends StatelessWidget {
       if(cts.width < Dimens.mobileView2){
         width = cts.width * 3;
         height = width / ratio;
-        left = -width/mobileOffset * 1.1;
+        left = -width/mobileOffset * 1.3;
       }
       if(cts.height < Dimens.mobileLandscape){
-        top = cts.height + height/4.2;
+        top = cts.height + height/2;
       }
     }
 
     return PositionedTransition(
       rect: RelativeRectTween(
         begin: RelativeRect.fromSize(
-            Rect.fromLTWH(left, top, width, height), cts),
+            Rect.fromLTWH(left, -height/3, width, height), cts),
         end: RelativeRect.fromSize(
-            Rect.fromLTWH(left, top-height, width, height), cts),
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
+            Rect.fromLTWH(left, top-height*1.2, width, height), cts),
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.linear)),
       child: FittedBox(child: img, fit: BoxFit.fill,),
     );
   }

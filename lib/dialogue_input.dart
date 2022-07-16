@@ -19,7 +19,6 @@ class InputDialogue extends StatelessWidget {
     double fontSize = min(12 + w/200, 30);
 
     DialogueProvider p = context.read<DialogueProvider>();
-    AudioProvider a = context.read<AudioProvider>();
     double inputW = fontSize * 16;
     double inputH = fontSize * 3;
 
@@ -44,7 +43,6 @@ class InputDialogue extends StatelessWidget {
                       OptionButton(fontSize: fontSize, s: Strings.talk,
                         onTap: (){
                           p.talk();
-                          //a.playTyping();
                         },
                       ),
                       OptionButton(fontSize: fontSize, s: Strings.ask,
@@ -87,7 +85,6 @@ class QuestionDialogue extends StatelessWidget {
         OptionButton(fontSize: fontSize, s: Strings.questions[i],
           onTap: (){
             p.answer(Strings.answers[i]);
-            //a.playTyping();
           }
         )
       );
@@ -109,7 +106,7 @@ class QuestionDialogue extends StatelessWidget {
                 Container(
                   width: inputW,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: inputW < 500 ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
                     children: questions,
                   ),
                 ),

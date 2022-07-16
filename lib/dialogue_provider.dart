@@ -84,6 +84,14 @@ class DialogueProvider extends ChangeNotifier{
     }
   }
 
+  comment(String s){
+    if(!_isTalkVisible && !fixedAnim){
+      fixTween(true);
+      _currentTalk = s;
+      toggleTalkVisibility();
+    }
+  }
+
   String getCurrentTalk(){
     return _currentTalk;
   }

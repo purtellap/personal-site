@@ -27,10 +27,6 @@ class _HomeState extends State<Home> {
       body: Stack(
         children: [
           AnimatedGradient(),
-          AnimatedOpacity(
-              duration: Duration(seconds: 5),
-              opacity: backgroundVisible ? 1.0 : 0.0,
-              child: BackgroundStack()),
           MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (_) => AudioProvider()..init(),),
@@ -42,6 +38,10 @@ class _HomeState extends State<Home> {
                     builder: (context, dialogueProvider, child) {
                       return Stack(
                         children: [
+                          AnimatedOpacity(
+                              duration: Duration(seconds: 5),
+                              opacity: backgroundVisible ? 1.0 : 0.0,
+                              child: BackgroundStack()),
                           ForegroundStack(),
                           AudioButton(),
                         ],

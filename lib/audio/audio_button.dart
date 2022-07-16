@@ -29,7 +29,7 @@ class _AudioButtonState extends State<AudioButton> {
             cursor: SystemMouseCursors.click,
             child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Icon(a.isMuted ? Icons.volume_off : Icons.volume_up, color: Color(0x33ffffff),)),
+                child: Icon(a.isMuted ? Icons.volume_off : Icons.volume_up, color: Color(0x66ffffff),)),
           ),
         )
     );
