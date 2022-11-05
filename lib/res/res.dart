@@ -13,11 +13,11 @@ class Dimens {
 
   static const int gradientDuration = 3; // 5
   static const int openingGradientsNum = 6;
-  static const int totalGradientDuration = gradientDuration * openingGradientsNum;
+  static const int totalGradientDuration =
+      gradientDuration * openingGradientsNum;
 }
 
 class ThemeColors {
-
   // Dark Theme
   static const Color backgroundColorDark = Color(0xFF121212);
   static const Color overlayColorDark = Color(0x11ffffff);
@@ -32,9 +32,9 @@ class ThemeColors {
 }
 
 class Strings {
-
   static const String title = 'Austin\'s Site';
-  static const String resumeLink = 'https://drive.google.com/file/d/1hjyNfq3jHCOkCbVzCs3WKWyiGdpU-lot/view?usp=sharing';
+  static const String resumeLink =
+      'https://drive.google.com/file/d/1t14tPygTLiUKVAxPnbGxSnD_-a5_k3Xi/view?usp=share_link';
 
   // Dialogue
   static const String talk = '[ talk ]';
@@ -71,19 +71,33 @@ class Strings {
 }
 
 class Images {
-  static const Image ocean = Image(image: AssetImage('assets/images/ocean.gif'),
-      filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image sun = Image(image: AssetImage('assets/images/sun.gif'),
-      filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image cliff = Image(image: AssetImage('assets/images/cliff.gif'),
-      filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image paper = Image(image: AssetImage('assets/images/paper.gif'),
-      filterQuality: FilterQuality.none, isAntiAlias: false);
-  static const Image moon = Image(image: AssetImage('assets/images/moon.gif'),
-      filterQuality: FilterQuality.none, isAntiAlias: false);
+  static const Image ocean = Image(
+      image: AssetImage('assets/images/ocean.gif'),
+      filterQuality: FilterQuality.none,
+      isAntiAlias: false);
+  static const Image sun = Image(
+      image: AssetImage('assets/images/sun.gif'),
+      filterQuality: FilterQuality.none,
+      isAntiAlias: false);
+  static const Image cliff = Image(
+      image: AssetImage('assets/images/cliff.gif'),
+      filterQuality: FilterQuality.none,
+      isAntiAlias: false);
+  static const Image paper = Image(
+      image: AssetImage('assets/images/paper.gif'),
+      filterQuality: FilterQuality.none,
+      isAntiAlias: false);
+  static const Image moon = Image(
+      image: AssetImage('assets/images/moon.gif'),
+      filterQuality: FilterQuality.none,
+      isAntiAlias: false);
 }
 
-class TextStyles{
-  static const TextStyle dialog = TextStyle(color: Colors.white, fontSize: 18,
-      fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100 );
+class TextStyles {
+  static const TextStyle dialog = TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+      fontFamily: 'retro',
+      letterSpacing: .8,
+      fontWeight: FontWeight.w100);
 }
