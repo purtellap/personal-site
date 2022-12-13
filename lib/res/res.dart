@@ -34,7 +34,7 @@ class ThemeColors {
 class Strings {
   static const String title = 'Austin\'s Site';
   static const String resumeLink =
-      'https://drive.google.com/file/d/1t14tPygTLiUKVAxPnbGxSnD_-a5_k3Xi/view?usp=share_link';
+      'https://drive.google.com/file/d/1Jlgmg_8CfhOHr--oCupWvxPYTot_T3Yl/view?usp=share_link';
 
   // Dialogue
   static const String talk = '[ talk ]';
