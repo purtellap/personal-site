@@ -28,8 +28,8 @@ class _PortfolioStarsState extends State<PortfolioStars>
 
     for (int i = 0; i < amount; i++) {
       AnimationController controller = AnimationController(
-          vsync: this, duration: Duration(seconds: Random().nextInt(10) + 20))
-        ..forward()
+          vsync: this, duration: Duration(seconds: Random().nextInt(8) + 16))
+        ..forward(from: Random().nextDouble())
         ..repeat();
       controllers.add(controller);
 
@@ -43,12 +43,7 @@ class _PortfolioStarsState extends State<PortfolioStars>
           .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
       opacityAnimations.add(opacityAnimation);
 
-      initialPositions.add(
-        Offset(
-          Random().nextDouble() * widget.width,
-          Random().nextDouble() * widget.height,
-        ),
-      );
+      initialPositions.add(Offset(Random().nextDouble() * widget.width, 0));
     }
   }
 
@@ -69,11 +64,12 @@ class _PortfolioStarsState extends State<PortfolioStars>
           return AnimatedBuilder(
             animation: controllers[index],
             builder: (context, child) {
-              double dx = initialPositions[index].dx + animations[index].value;
+              double dx = initialPositions[index].dx +
+                  300 * sin(animations[index].value / 300);
               double dy = initialPositions[index].dy + animations[index].value;
               return Positioned(
                 left: dx % widget.width,
-                top: dy % widget.height,
+                top: dy,
                 child: Opacity(
                   opacity: opacityAnimations[index].value,
                   child: Container(
