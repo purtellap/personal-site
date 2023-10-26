@@ -25,8 +25,9 @@ class MessageField extends StatelessWidget {
         fillColor: ThemeColors.secondaryBackgroundColor,
         filled: true,
         hoverColor: Colors.transparent,
+        isDense: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
         ),
       ),
@@ -37,34 +38,27 @@ class MessageField extends StatelessWidget {
 
 class NameEmailField extends StatelessWidget {
   final TextEditingController controller;
-  final EdgeInsets padding;
-  const NameEmailField(
-      {Key? key, required this.controller, required this.padding})
-      : super(key: key);
+  const NameEmailField({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Padding(
-        padding: padding,
-        child: TextField(
-          controller: controller,
-          autocorrect: false,
-          autofocus: false,
-          enableSuggestions: false,
-          cursorColor: ThemeColors.secondaryTextColor,
-          decoration: InputDecoration(
-            fillColor: ThemeColors.secondaryBackgroundColor,
-            filled: true,
-            hoverColor: Colors.transparent,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
-            ),
-          ),
-          style: TextStyles.portfolio.copyWith(fontSize: 14),
+    return TextField(
+      controller: controller,
+      autocorrect: false,
+      autofocus: false,
+      enableSuggestions: false,
+      cursorColor: ThemeColors.secondaryTextColor,
+      decoration: InputDecoration(
+        fillColor: ThemeColors.secondaryBackgroundColor,
+        filled: true,
+        hoverColor: Colors.transparent,
+        isDense: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
         ),
       ),
+      style: TextStyles.portfolio.copyWith(fontSize: 14),
     );
   }
 }
@@ -82,17 +76,28 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-      child: OnHover(builder: (isHovered) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Submit',
-            style: TextStyles.portfolio.copyWith(fontSize: 14),
+    return OnHover(
+      builder: (isHovered) {
+        return InkWell(
+          onTap: () {},
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  Strings.sendButton,
+                  style: TextStyles.portfolio.copyWith(fontSize: 12),
+                ),
+                const SizedBox(width: 16),
+                Icon(Icons.send_rounded, size: 16),
+              ],
+            ),
           ),
         );
-      }),
+      },
     );
   }
 }
@@ -134,28 +139,73 @@ class ContactWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: ThemeColors.secondaryBackgroundColor),
       child: Column(
         children: [
+          const SizedBox(height: 24),
           Row(
             children: [
-              NameEmailField(
-                  controller: nameController,
-                  padding: const EdgeInsets.fromLTRB(0, 0, 16, 0)),
-              NameEmailField(
-                  controller: emailController,
-                  padding: const EdgeInsets.fromLTRB(16, 0, 0, 0))
+              _FieldWidget(
+                text: Strings.nameField,
+                child: NameEmailField(controller: nameController),
+              ),
+              const SizedBox(width: 16),
+              _FieldWidget(
+                text: Strings.emailField,
+                child: NameEmailField(controller: emailController),
+              ),
             ],
           ),
           const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SelectableText(
+              Strings.messageField,
+              style: TextStyles.portfolio.copyWith(fontSize: 12),
+            ),
+          ),
+          const SizedBox(height: 8),
           MessageField(controller: messageController),
-          SubmitButton(
-              nameController: nameController,
-              emailController: emailController,
-              messageController: messageController),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: SubmitButton(
+                nameController: nameController,
+                emailController: emailController,
+                messageController: messageController),
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+class _FieldWidget extends StatelessWidget {
+  final Widget child;
+  final String text;
+
+  const _FieldWidget({
+    Key? key,
+    required this.child,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SelectableText(
+            text,
+            style: TextStyles.portfolio.copyWith(fontSize: 12),
+          ),
+          const SizedBox(height: 8),
+          child,
         ],
       ),
     );

@@ -63,6 +63,32 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (context.isMobileWidth) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SelectableText(
+              title,
+              style: TextStyles.portfolio.copyWith(
+                  fontSize: 54, fontWeight: FontWeight.bold, letterSpacing: 2),
+            ),
+            const SizedBox(width: 16),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: SelectableText(
+                quote,
+                style: TextStyles.portfolio.copyWith(
+                    fontSize: 16, color: ThemeColors.secondaryTextColor),
+                maxLines: 2,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -75,12 +101,12 @@ class Header extends StatelessWidget {
         Flexible(
           child: Padding(
             padding: const EdgeInsets.only(top: 16),
-            child: Text(
+            child: SelectableText(
               quote,
               style: TextStyles.portfolio.copyWith(
                   fontSize: 16, color: ThemeColors.secondaryTextColor),
-              overflow: TextOverflow.ellipsis,
               maxLines: 2,
+              minLines: 2,
             ),
           ),
         ),
@@ -110,14 +136,15 @@ class GradientText extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: onPressed,
       child: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
-                colors: ThemeColors.textGradients,
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ).createShader(
-                Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-              ),
-          child: Text(text, style: textStyle)),
+        shaderCallback: (bounds) => LinearGradient(
+          colors: ThemeColors.textGradients,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(
+          Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+        ),
+        child: Text(text, style: textStyle, softWrap: true),
+      ),
     );
   }
 }
@@ -164,13 +191,15 @@ class DesignWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double size = 128;
+    final double paddedSize = 96;
+    final double previewWidth = context.isMobileWidth ? paddedSize : 200;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.network(
           Images.figma,
           isAntiAlias: true,
-          height: size - 32,
+          height: paddedSize,
         ),
         const SizedBox(width: 32),
         Expanded(
@@ -190,34 +219,40 @@ class DesignWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 16, horizontal: 24),
                       child: Container(
-                        width: 200,
+                        width: previewWidth,
                         decoration: BoxDecoration(
                           color: ThemeColors.secondaryBackgroundColor,
                           borderRadius: BorderRadius.circular(16),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GradientText(
-                            text: Strings.designName,
-                            style: TextStyles.portfolio.copyWith(fontSize: 24),
-                            onPressed: () =>
-                                LaunchURL.of(Strings.designPortfolioLink),
-                          ),
-                          SelectableText(
-                            Strings.designDescription,
-                            style: TextStyles.portfolio.copyWith(
-                                color: Colors.white.withOpacity(0.2),
-                                fontSize: 16),
-                          ),
-                        ],
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GradientText(
+                              text: Strings.designName,
+                              style:
+                                  TextStyles.portfolio.copyWith(fontSize: 24),
+                              onPressed: () =>
+                                  LaunchURL.of(Strings.designPortfolioLink),
+                            ),
+                            Flexible(
+                              child: SelectableText(
+                                Strings.designDescription,
+                                style: TextStyles.portfolio.copyWith(
+                                    color: Colors.white.withOpacity(0.2),
+                                    fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
+                    ),
+                    const SizedBox(width: 24),
                   ],
                 ),
               );

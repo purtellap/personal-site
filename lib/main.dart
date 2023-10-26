@@ -13,6 +13,10 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  FlutterError.onError = (FlutterErrorDetails details) {
+    debugPrint(details.exception.toString());
+  };
+
   setUrlStrategy(PathUrlStrategy());
   runApp(PersonalSite());
 }

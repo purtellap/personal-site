@@ -5,6 +5,7 @@ import '../portfolio/projects.dart';
 class Dimens {
   static const double splashRadius = 24;
   static const double maxPortfolioWidth = 800;
+  static const double portfolioMobileThreshold = 680;
   static const int sceneHeight = 512;
   static const int sceneWidth = 1536;
   static const int mobileView = 900;
@@ -19,7 +20,7 @@ class Dimens {
       gradientDuration * openingGradientsNum;
 
   static const Widget sectionHeight = const SizedBox(height: 48);
-  static const Widget subSectionHeight = const SizedBox(height: 24);
+  static const Widget subSectionHeight = const SizedBox(height: 32);
 }
 
 class ThemeColors {
@@ -232,4 +233,9 @@ class Projects {
     onStoreUrl:
         'https://play.google.com/store/apps/details?id=com.austinpurtell.floppybirb',
   );
+}
+
+extension DimensExtension on BuildContext {
+  bool get isMobileWidth =>
+      MediaQuery.of(this).size.width < Dimens.portfolioMobileThreshold;
 }

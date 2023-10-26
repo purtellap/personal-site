@@ -37,6 +37,7 @@ class ProjectWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: Container(
+            clipBehavior: Clip.antiAlias,
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: ThemeColors.secondaryBackgroundColor,
@@ -80,10 +81,12 @@ class ProjectWidget extends StatelessWidget {
                           text: title,
                           onPressed: () => LaunchURL.of(onPressedUrl),
                         ),
-                        SelectableText(description,
-                            style: TextStyles.portfolio.copyWith(
-                                color: Colors.white.withOpacity(0.2),
-                                fontSize: 12)),
+                        SelectableText(
+                          description,
+                          style: TextStyles.portfolio.copyWith(
+                              color: Colors.white.withOpacity(0.2),
+                              fontSize: 12),
+                        ),
                       ],
                     ),
                   ],
@@ -148,7 +151,7 @@ class ProjectsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, cts) {
-      if (MediaQuery.of(context).size.width < Dimens.maxPortfolioWidth - 100) {
+      if (context.isMobileWidth) {
         return Column(children: [..._buildProjects(null)]);
       } else {
         return Row(
