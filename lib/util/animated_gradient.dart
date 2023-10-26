@@ -21,7 +21,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
     Color(0xff483475),
     Color(0xff2b2f77),
     Color(0xff141852),
-  ];//.reversed.toList();
+  ]; //.reversed.toList();
 
   List<Alignment> alignments = [
     Alignment.bottomLeft,
@@ -46,65 +46,62 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
     });
     return Scaffold(
         body: Stack(
-          children: [
-            AnimatedContainer(
-              duration: Duration(seconds: duration),
-              onEnd: () {
-                if(index < colors.length-2) {
-                  // last gradient for sky (not sunset)
-                  if(index == Dimens.openingGradientsNum){
-                    Future.delayed(Duration(seconds: 1), (){
-                      setState(() {
-                        index += 1;
-                        duration = Dimens.sunsetDuration;
-                        bottomColor = colors[index % colors.length];
-                        topColor = colors[(index + 1) % colors.length];
-                      });
-                    });
-                  }
-                  // make sunset better looking
-                  else if(index == Dimens.openingGradientsNum + 1){
-                    setState(() {
-                      index += 1;
-                      duration = Dimens.sunsetDuration~/2;
-                      bottomColor = colors[index % colors.length];
-                      topColor = colors[(index + 1) % colors.length];
-                    });
-                  }
-                  else if(index == Dimens.openingGradientsNum + 2){
-                    setState(() {
-                      index += 1;
-                      duration = Dimens.sunsetDuration~/4;
-                      bottomColor = colors[index % colors.length];
-                      topColor = colors[(index + 1) % colors.length];
-                    });
-                  }
-                  // rest of sunset
-                  else if(index > Dimens.openingGradientsNum){
-                    setState(() {
-                      index += 1;
-                      duration = Dimens.sunsetDuration;
-                      bottomColor = colors[index % colors.length];
-                      topColor = colors[(index + 1) % colors.length];
-                    });
-                  }
-                  // sky
-                  else{
-                    setState(() {
-                      index += 1;
-                      bottomColor = colors[index % colors.length];
-                      topColor = colors[(index + 1) % colors.length];
-                    });
-                  }
-
-                }
-              },
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: begin, end: end, colors: [bottomColor, topColor])),
-            ),
-          ],
-        ));
+      children: [
+        AnimatedContainer(
+          duration: Duration(seconds: duration),
+          onEnd: () {
+            if (index < colors.length - 2) {
+              // last gradient for sky (not sunset)
+              if (index == Dimens.openingGradientsNum) {
+                Future.delayed(Duration(seconds: 1), () {
+                  setState(() {
+                    index += 1;
+                    duration = Dimens.sunsetDuration;
+                    bottomColor = colors[index % colors.length];
+                    topColor = colors[(index + 1) % colors.length];
+                  });
+                });
+              }
+              // make sunset better looking
+              else if (index == Dimens.openingGradientsNum + 1) {
+                setState(() {
+                  index += 1;
+                  duration = Dimens.sunsetDuration ~/ 2;
+                  bottomColor = colors[index % colors.length];
+                  topColor = colors[(index + 1) % colors.length];
+                });
+              } else if (index == Dimens.openingGradientsNum + 2) {
+                setState(() {
+                  index += 1;
+                  duration = Dimens.sunsetDuration ~/ 4;
+                  bottomColor = colors[index % colors.length];
+                  topColor = colors[(index + 1) % colors.length];
+                });
+              }
+              // rest of sunset
+              else if (index > Dimens.openingGradientsNum) {
+                setState(() {
+                  index += 1;
+                  duration = Dimens.sunsetDuration;
+                  bottomColor = colors[index % colors.length];
+                  topColor = colors[(index + 1) % colors.length];
+                });
+              }
+              // sky
+              else {
+                setState(() {
+                  index += 1;
+                  bottomColor = colors[index % colors.length];
+                  topColor = colors[(index + 1) % colors.length];
+                });
+              }
+            }
+          },
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: begin, end: end, colors: [bottomColor, topColor])),
+        ),
+      ],
+    ));
   }
 }
-

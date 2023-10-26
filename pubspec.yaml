@@ -36,3 +36,6 @@ flutter:
     - family: retro
       fonts:
         - asset: assets/fonts/retro.ttf
+    - family: inter
+      fonts:
+        - asset: assets/fonts/inter.ttf

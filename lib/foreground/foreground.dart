@@ -3,8 +3,8 @@ import 'package:ps/foreground/hitbox.dart';
 import 'package:ps/foreground/paper.dart';
 import 'package:ps/res/res.dart';
 
-import '../dialogue_input.dart';
-import '../dialogue_talk.dart';
+import '../dialogue/dialogue_input.dart';
+import '../dialogue/dialogue_talk.dart';
 
 class ForegroundStack extends StatefulWidget {
   const ForegroundStack({Key? key}) : super(key: key);

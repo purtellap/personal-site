@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Dimens {
-  static const int borderRadius = 16;
   static const double splashRadius = 24;
+  static const double maxPortfolioWidth = 800;
   static const int sceneHeight = 512;
   static const int sceneWidth = 1536;
   static const int mobileView = 900;
@@ -19,13 +19,20 @@ class Dimens {
 
 class ThemeColors {
   // Dark Theme
-  static const Color backgroundColorDark = Color(0xFF121212);
-  static const Color overlayColorDark = Color(0x11ffffff);
+  static const Color backgroundColor = Colors.black;
+  static const Color secondaryBackgroundColor = Color(0x0affffff);
   static const Color textColorDark = Colors.white;
   static const Color secondaryTextColorDark = Colors.grey;
 
   // Accent Colors
-  static const Color winter = Color(0xffB3DAF1);
+  static const List<Color> textGradients = [
+    Color(0xff707CED),
+    Color(0xffD470ED),
+  ];
+  static const List<Color> containerGradients = [
+    Color(0xff0D0914),
+    Color(0xff090F1F),
+  ];
   static const Color underlineColor = Color(0x44000000);
   static const Color selectionColor = Color(0x66888888);
   static const Color linkColor = Color(0xaaaaaaaa);
@@ -33,6 +40,7 @@ class ThemeColors {
 
 class Strings {
   static const String title = 'Austin\'s Site';
+  static const String portfolioTitle = 'Austin Purtell\'s Portfolio';
   static const String resumeLink =
       'https://drive.google.com/file/d/1Jlgmg_8CfhOHr--oCupWvxPYTot_T3Yl/view?usp=share_link';
 
@@ -100,4 +108,10 @@ class TextStyles {
       fontFamily: 'retro',
       letterSpacing: .8,
       fontWeight: FontWeight.w100);
+
+  static const TextStyle portfolio = TextStyle(
+    color: Colors.white,
+    fontSize: 18,
+    fontFamily: 'inter',
+  );
 }

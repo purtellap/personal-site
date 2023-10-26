@@ -1,6 +1,6 @@
 {
-    "name": "ps",
-    "short_name": "ps",
+    "name": "Austin's website",
+    "short_name": "Austin's website",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

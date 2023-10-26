@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ps/dialogue_provider.dart';
+import 'package:ps/dialogue/dialogue_provider.dart';
 import 'package:ps/res/res.dart';
 import 'package:ps/util/typing_text.dart';
 import 'dart:ui' as ui;

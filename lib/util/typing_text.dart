@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ps/audio/audio_provider.dart';
 
-import '../dialogue_provider.dart';
-import '../res/res.dart';
+import '../dialogue/dialogue_provider.dart';
 
 class TypingText extends StatelessWidget {
   const TypingText({Key? key, required this.s, required this.fontSize}) : super(key: key);

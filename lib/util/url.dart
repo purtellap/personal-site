@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LaunchURL {
-
-  static of(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+  static Future<void> of(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
-      throw 'Could not launch $url';
+      debugPrint('Could not launch $url');
     }
   }
 }

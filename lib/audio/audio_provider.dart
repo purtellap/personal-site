@@ -3,8 +3,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../res/res.dart';
 
-class AudioProvider extends ChangeNotifier{
-
+class AudioProvider extends ChangeNotifier {
   final AudioPlayer musicPlayer = AudioPlayer();
   final AudioPlayer oceanPlayer = AudioPlayer();
   bool isMuted = true;
@@ -14,7 +13,7 @@ class AudioProvider extends ChangeNotifier{
   bool isOcean = false;
   int typingValue = 0;
 
-  init(){
+  init() {
     setAudio();
   }
 
@@ -32,56 +31,56 @@ class AudioProvider extends ChangeNotifier{
     oceanPlayer.setAsset('assets/audio/gentle.mp3');
     oceanPlayer.setLoopMode(LoopMode.all);
     oceanPlayer.setVolume(0);
-    Future.delayed(Duration(seconds: Dimens.totalGradientDuration), (){
+    Future.delayed(Duration(seconds: Dimens.totalGradientDuration), () {
       isOcean = true;
-      if(!isMuted){
+      if (!isMuted) {
         oceanPlayer.play();
       }
     });
     notifyListeners();
   }
 
-  toggleMuted(){
+  toggleMuted() {
     isMuted = !isMuted;
-    if(isMuted){
+    if (isMuted) {
       musicPlayer.setVolume(0);
       oceanPlayer.setVolume(0);
-    }
-    else{
+    } else {
       playMusic();
       playOcean();
     }
   }
 
-  playMusic(){
+  playMusic() {
     musicPlayer.setVolume(musicAudioVolume);
-    if(!musicPlayer.playing){
+    if (!musicPlayer.playing) {
       musicPlayer.play();
     }
   }
 
-  playOcean(){
+  playOcean() {
     oceanPlayer.setVolume(oceanAudioVolume);
-    if(isOcean && !oceanPlayer.playing){
+    if (isOcean && !oceanPlayer.playing) {
       oceanPlayer.play();
     }
   }
 
   playTyping(int i) {
-    if(!isMuted && typingValue < i){
+    if (!isMuted && typingValue < i) {
       playType();
     }
     typingValue = i;
   }
 
-  playType() async{
+  playType() async {
     AudioPlayer p = AudioPlayer();
     await p.setAsset('assets/audio/b.mp3');
     await p.setLoopMode(LoopMode.off);
     await p.setVolume(typingAudioVolume);
     await p.play();
 
-    await Future.delayed(Duration(seconds: (p.duration?.inSeconds ?? 1) + 1), () async {
+    await Future.delayed(Duration(seconds: (p.duration?.inSeconds ?? 1) + 1),
+        () async {
       p.dispose();
     });
   }
