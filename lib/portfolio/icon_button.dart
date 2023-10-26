@@ -31,7 +31,7 @@ class _PortfolioIconButtonState extends State<PortfolioIconButton>
         .animate(_controller);
     _color2 = ColorTween(
             begin: ThemeColors.textGradients[1],
-            end: ThemeColors.textGradients[0])
+            end: ThemeColors.highlightGradientColor)
         .animate(_controller);
   }
 

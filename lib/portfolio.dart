@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:ps/portfolio/astronaut.dart';
-import 'package:ps/portfolio/stars.dart';
+import 'package:ps/portfolio/contact.dart';
+import 'package:ps/portfolio/projects.dart';
+import 'package:ps/portfolio/widgets.dart';
 import 'package:ps/res/res.dart';
 import 'package:ps/util/routes.dart';
 import 'package:ps/util/url.dart';
@@ -15,37 +14,63 @@ class Portfolio extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: LoadingStack(
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: Dimens.maxPortfolioWidth,
-          ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      PortfolioIconButton(
-                        icon: Icons.home_rounded,
-                        onPressed: () => Routes.go(context, Routes.home),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                          child: SelectableText(Strings.portfolioTitle,
-                              style: TextStyles.portfolio)),
-                      PortfolioIconButton(
-                        icon: Icons.description_rounded,
-                        onPressed: () => LaunchURL.of(Strings.resumeLink),
-                      ),
-                    ],
+      body: SingleChildScrollView(
+        child: _LoadingStack(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            constraints: BoxConstraints(
+              maxWidth: Dimens.maxPortfolioWidth,
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    PortfolioIconButton(
+                      icon: Icons.home_rounded,
+                      onPressed: () => Routes.go(context, Routes.home),
+                    ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                        child: SelectableText(Strings.portfolioTitle,
+                            style: TextStyles.portfolio)),
+                    PortfolioIconButton(
+                      icon: Icons.description_rounded,
+                      onPressed: () => LaunchURL.of(Strings.resumeLink),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                HeroCard(),
+                Dimens.sectionHeight,
+                Header(
+                  title: Strings.projectsTitle,
+                  quote: Strings.projectsQuote,
+                ),
+                Dimens.subSectionHeight,
+                ProjectsWidget(),
+                Dimens.sectionHeight,
+                Header(
+                  title: Strings.designsTitle,
+                  quote: Strings.designsQuote,
+                ),
+                Dimens.subSectionHeight,
+                DesignWidget(),
+                Dimens.sectionHeight,
+                Header(
+                  title: Strings.contactTitle,
+                  quote: Strings.contactQuote,
+                ),
+                Dimens.subSectionHeight,
+                ContactWidget(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 96,
                   ),
-                  const SizedBox(height: 20),
-                  Hero(),
-                ],
-              ),
+                  child: Footer(),
+                ),
+              ],
             ),
           ),
         ),
@@ -54,47 +79,15 @@ class Portfolio extends StatelessWidget {
   }
 }
 
-class Hero extends StatelessWidget {
-  const Hero({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, cts) {
-      final width = max(cts.biggest.width, Dimens.maxPortfolioWidth);
-      final height = width / 2.5;
-      return Stack(
-        alignment: Alignment.centerLeft,
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              gradient: LinearGradient(
-                colors: ThemeColors.containerGradients,
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            child: PortfolioStars(width: width, height: height),
-          ),
-          Astronaut(),
-        ],
-      );
-    });
-  }
-}
-
-class LoadingStack extends StatefulWidget {
+class _LoadingStack extends StatefulWidget {
   final Widget child;
-  LoadingStack({required this.child});
+  _LoadingStack({required this.child});
 
   @override
   _LoadingStackState createState() => _LoadingStackState();
 }
 
-class _LoadingStackState extends State<LoadingStack> {
+class _LoadingStackState extends State<_LoadingStack> {
   bool isLoaded = false;
 
   @override
@@ -106,10 +99,11 @@ class _LoadingStackState extends State<LoadingStack> {
   }
 
   _loadImages() async {
-    await precacheImage(AssetImage('images/astronaut.png'), context,
-        onError: (exception, stackTrace) {
-      print('Failed to load image: $exception');
-    });
+    for (var image in Images.portfolioImages) {
+      await precacheImage(image, context, onError: (exception, stackTrace) {
+        print('Failed to load image: $exception');
+      });
+    }
 
     setState(() {
       isLoaded = true;

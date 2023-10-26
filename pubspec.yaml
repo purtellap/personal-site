@@ -18,6 +18,8 @@ dependencies:
   url_launcher: ^6.0.18
   cupertino_icons: ^1.0.2
   just_audio: ^0.9.27
+  http: ^0.13.6
+  html: ^0.15.4
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ps/res/res.dart';
 
 class Astronaut extends StatefulWidget {
   @override
@@ -40,10 +41,13 @@ class _AstronautState extends State<Astronaut>
           child: child,
         );
       },
-      child: Image.asset(
-        'images/astronaut.png',
-        width: size,
-        height: size,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Image.asset(
+          Images.astronaut,
+          width: size,
+          height: size,
+        ),
       ),
     );
   }
