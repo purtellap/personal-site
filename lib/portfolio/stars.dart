@@ -18,6 +18,7 @@ class _PortfolioStarsState extends State<PortfolioStars>
   List<Animation<double>> animations = [];
   List<Animation<double>> opacityAnimations = [];
   List<Offset> initialPositions = [];
+  final Random random = Random();
 
   final int amount = 50;
   final double diameter = 2;
@@ -25,12 +26,15 @@ class _PortfolioStarsState extends State<PortfolioStars>
   @override
   void initState() {
     super.initState();
-
     for (int i = 0; i < amount; i++) {
+      double randomOpacityStart = random.nextDouble() * 0.5;
+      double randomOpacityEnd = 0.5 + random.nextDouble() * 0.5;
+
       AnimationController controller = AnimationController(
-          vsync: this, duration: Duration(seconds: Random().nextInt(8) + 16))
-        ..forward(from: Random().nextDouble())
+          vsync: this, duration: Duration(seconds: random.nextInt(8) + 24))
+        ..forward(from: random.nextDouble())
         ..repeat();
+
       controllers.add(controller);
 
       Animation<double> animation =
@@ -39,7 +43,8 @@ class _PortfolioStarsState extends State<PortfolioStars>
       );
       animations.add(animation);
 
-      Animation<double> opacityAnimation = Tween<double>(begin: 0.1, end: 1)
+      Animation<double> opacityAnimation = Tween<double>(
+              begin: randomOpacityStart, end: randomOpacityEnd)
           .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
       opacityAnimations.add(opacityAnimation);
 
@@ -57,34 +62,39 @@ class _PortfolioStarsState extends State<PortfolioStars>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: List.generate(
-        amount,
-        (index) {
-          return AnimatedBuilder(
-            animation: controllers[index],
-            builder: (context, child) {
-              double dx = initialPositions[index].dx +
-                  300 * sin(animations[index].value / 300);
-              double dy = initialPositions[index].dy + animations[index].value;
-              return Positioned(
-                left: dx % widget.width,
-                top: dy,
-                child: Opacity(
-                  opacity: opacityAnimations[index].value,
-                  child: Container(
-                    width: diameter,
-                    height: diameter,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+    return RepaintBoundary(
+      child: Stack(
+        children: List.generate(
+          amount,
+          (index) => buildStar(index),
+        ),
+      ),
+    );
+  }
+
+  Widget buildStar(int index) {
+    return AnimatedBuilder(
+      animation: controllers[index],
+      builder: (context, child) {
+        double dx = initialPositions[index].dx +
+            200 * sin(animations[index].value / 200);
+        double dy = initialPositions[index].dy + animations[index].value;
+        return Positioned(
+          left: dx % widget.width,
+          top: dy,
+          child: Opacity(
+            opacity: opacityAnimations[index].value,
+            child: child,
+          ),
+        );
+      },
+      child: Container(
+        width: diameter,
+        height: diameter,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
       ),
     );
   }
