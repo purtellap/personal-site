@@ -150,6 +150,7 @@ class ContactWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16, 0, 0, 0))
             ],
           ),
+          const SizedBox(height: 16),
           MessageField(controller: messageController),
           SubmitButton(
               nameController: nameController,

@@ -60,19 +60,19 @@ class ProjectWidget extends StatelessWidget {
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
                           color: ThemeColors.backgroundColor,
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Padding(
                           padding: EdgeInsets.all(cover ? 0 : 12),
-                          child: Image.asset(
-                            imageUrl,
+                          child: Image(
+                            image: AssetImage(imageUrl),
                             fit: BoxFit.cover,
                             isAntiAlias: true,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: 16),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
