@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ps/portfolio/image_preview.dart';
 import 'package:ps/portfolio/widgets.dart';
 import 'package:ps/util/url.dart';
 
@@ -64,8 +63,8 @@ class ProjectWidget extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: EdgeInsets.all(cover ? 0 : 12),
-                          child: Image(
-                            image: AssetImage(imageUrl),
+                          child: Image.asset(
+                            imageUrl,
                             fit: BoxFit.cover,
                             isAntiAlias: true,
                           ),
@@ -90,7 +89,7 @@ class ProjectWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8),
-                ImagePreview(url: onPressedUrl),
+                //ImagePreview(url: onPressedUrl),
                 SizedBox(height: 8),
                 Row(
                   children: [

@@ -145,11 +145,11 @@ class Images {
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1667px-Figma-logo.svg.png';
 
   // Portfolio
-  static const String astronaut = 'images/astronaut.png';
-  static const String ssLogo = 'images/sslogo.png';
-  static const String imcLogo = 'images/imc.png';
-  static const String wfLogo = 'images/wf.png';
-  static const String floppyLogo = 'images/floppy.png';
+  static const String astronaut = 'assets/images/astronaut.png';
+  static const String ssLogo = 'assets/images/sslogo.png';
+  static const String imcLogo = 'assets/images/imc.png';
+  static const String wfLogo = 'assets/images/wf.png';
+  static const String floppyLogo = 'assets/images/floppy.png';
 
   static const List<AssetImage> portfolioImages = [
     AssetImage(astronaut),
