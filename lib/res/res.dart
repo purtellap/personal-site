@@ -54,6 +54,12 @@ class Strings {
   static const String designPortfolioLink =
       'https://www.figma.com/file/PhBEpLOSAOL3HMv0tFFloH/Design-Portfolio?type=design&node-id=0%3A1&mode=design&t=ciYByAbrRVa9i1DO-1';
 
+  static const String email = 'mailto:purtellap@gmail.com';
+  static const String github = 'https://github.com/purtellap';
+  static const String linkedin = 'https://www.linkedin.com/in/austin-purtell/';
+  static const String instagram = 'https://www.instagram.com/austinpurtell';
+  static const String youtube = 'https://www.youtube.com/@asutin';
+
   // Dialogue
   static const String talk = '[ talk ]';
   static const String ask = '[ ask ]';
@@ -151,6 +157,13 @@ class Images {
   static const String imcLogo = 'assets/images/imc.png';
   static const String wfLogo = 'assets/images/wf.png';
   static const String floppyLogo = 'assets/images/floppy.png';
+  static const String design = 'assets/images/design.png';
+
+  // Socials
+  static const String youtube = 'assets/icons/youtube.png';
+  static const String instagram = 'assets/icons/instagram.png';
+  static const String linkedin = 'assets/icons/linkedin.png';
+  static const String github = 'assets/icons/github.png';
 
   static const List<AssetImage> portfolioImages = [
     AssetImage(astronaut),
@@ -158,6 +171,11 @@ class Images {
     AssetImage(imcLogo),
     AssetImage(wfLogo),
     AssetImage(floppyLogo),
+    AssetImage(design),
+    AssetImage(youtube),
+    AssetImage(instagram),
+    AssetImage(linkedin),
+    AssetImage(github),
   ];
 }
 

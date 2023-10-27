@@ -33,6 +33,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/audio/
+    - assets/icons/
 
   fonts:
     - family: retro

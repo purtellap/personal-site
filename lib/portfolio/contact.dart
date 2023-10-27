@@ -1,14 +1,78 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:ps/portfolio/widgets.dart';
 
 import '../res/res.dart';
 
-class MessageField extends StatelessWidget {
+class ContactWidget extends StatelessWidget {
+  ContactWidget({Key? key}) : super(key: key);
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final messageController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 24),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: ThemeColors.secondaryBackgroundColor),
+      child: Column(
+        children: [
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              _FieldWidget(
+                text: Strings.nameField,
+                child: _NameEmailField(controller: nameController),
+              ),
+              const SizedBox(width: 16),
+              _FieldWidget(
+                text: Strings.emailField,
+                child: _NameEmailField(controller: emailController),
+                required: true,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              SelectableText(
+                Strings.messageField,
+                style: TextStyles.portfolio.copyWith(fontSize: 12),
+              ),
+              ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: ThemeColors.textGradients,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ).createShader(
+                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                ),
+                child: Text('*', style: TextStyles.portfolio, softWrap: true),
+              )
+            ],
+          ),
+          const SizedBox(height: 8),
+          _MessageField(controller: messageController),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: _SubmitButton(
+                nameController: nameController,
+                emailController: emailController,
+                messageController: messageController),
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+class _MessageField extends StatelessWidget {
   final TextEditingController controller;
-  const MessageField({Key? key, required this.controller}) : super(key: key);
+  const _MessageField({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +100,9 @@ class MessageField extends StatelessWidget {
   }
 }
 
-class NameEmailField extends StatelessWidget {
+class _NameEmailField extends StatelessWidget {
   final TextEditingController controller;
-  const NameEmailField({Key? key, required this.controller}) : super(key: key);
+  const _NameEmailField({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +127,11 @@ class NameEmailField extends StatelessWidget {
   }
 }
 
-class SubmitButton extends StatelessWidget {
+class _SubmitButton extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController messageController;
-  const SubmitButton(
+  const _SubmitButton(
       {Key? key,
       required this.nameController,
       required this.emailController,
@@ -102,96 +166,16 @@ class SubmitButton extends StatelessWidget {
   }
 }
 
-Future sendEmail(
-    {required String name,
-    required String email,
-    required String message}) async {
-  const serviceId = 'service_b8guw1a';
-  const templateId = 'template_iu8qj8h';
-  const userId = 'user_opMB4DYe8DAc4zLXXWcyp';
-
-  final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-  final response = await http.post(url,
-      headers: {
-        // 'origin': 'http://localhost',
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'service_id': serviceId,
-        'template_id': templateId,
-        'user_id': userId,
-        'template_params': {
-          'user_name': name,
-          'user_email': email,
-          'user_message': message,
-          'to_email': 'Strings.contactEmail',
-        }
-      }));
-}
-
-class ContactWidget extends StatelessWidget {
-  ContactWidget({Key? key}) : super(key: key);
-
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final messageController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: ThemeColors.secondaryBackgroundColor),
-      child: Column(
-        children: [
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              _FieldWidget(
-                text: Strings.nameField,
-                child: NameEmailField(controller: nameController),
-              ),
-              const SizedBox(width: 16),
-              _FieldWidget(
-                text: Strings.emailField,
-                child: NameEmailField(controller: emailController),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: SelectableText(
-              Strings.messageField,
-              style: TextStyles.portfolio.copyWith(fontSize: 12),
-            ),
-          ),
-          const SizedBox(height: 8),
-          MessageField(controller: messageController),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: SubmitButton(
-                nameController: nameController,
-                emailController: emailController,
-                messageController: messageController),
-          ),
-          const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-}
-
 class _FieldWidget extends StatelessWidget {
   final Widget child;
   final String text;
+  final bool required;
 
   const _FieldWidget({
     Key? key,
     required this.child,
     required this.text,
+    this.required = false,
   }) : super(key: key);
 
   @override
@@ -200,9 +184,24 @@ class _FieldWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SelectableText(
-            text,
-            style: TextStyles.portfolio.copyWith(fontSize: 12),
+          Row(
+            children: [
+              SelectableText(
+                text,
+                style: TextStyles.portfolio.copyWith(fontSize: 12),
+              ),
+              if (required)
+                ShaderMask(
+                  shaderCallback: (bounds) => LinearGradient(
+                    colors: ThemeColors.textGradients,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(
+                    Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                  ),
+                  child: Text('*', style: TextStyles.portfolio, softWrap: true),
+                ),
+            ],
           ),
           const SizedBox(height: 8),
           child,

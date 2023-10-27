@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ps/portfolio/widgets.dart';
-import 'package:ps/util/url.dart';
+import 'package:ps/util/services.dart';
 
 import '../res/res.dart';
 
@@ -57,7 +57,7 @@ class ProjectWidget extends StatelessWidget {
                       child: Container(
                         width: 48,
                         height: 48,
-                        clipBehavior: Clip.hardEdge,
+                        clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                           color: ThemeColors.backgroundColor,
                           borderRadius: BorderRadius.circular(8),

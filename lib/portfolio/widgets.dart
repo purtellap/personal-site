@@ -5,7 +5,7 @@ import 'package:ps/portfolio/icon_button.dart';
 import 'package:ps/portfolio/stars.dart';
 import 'package:ps/res/res.dart';
 
-import '../util/url.dart';
+import '../util/services.dart';
 import 'astronaut.dart';
 
 class HeroCard extends StatelessWidget {
@@ -219,10 +219,16 @@ class DesignWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 16, horizontal: 24),
                       child: Container(
+                        clipBehavior: Clip.antiAlias,
                         width: previewWidth,
                         decoration: BoxDecoration(
                           color: ThemeColors.secondaryBackgroundColor,
                           borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Image.asset(
+                          Images.design,
+                          isAntiAlias: true,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -275,28 +281,28 @@ class Footer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         PortfolioIconButton(
-          onPressed: () => LaunchURL.of(''),
-          icon: Icons.cloud,
+          onPressed: () => LaunchURL.of(Strings.email),
+          icon: Icons.email,
         ),
         SizedBox(width: padding),
         PortfolioIconButton(
-          onPressed: () => LaunchURL.of(''),
-          icon: Icons.cloud,
+          onPressed: () => LaunchURL.of(Strings.github),
+          image: Images.github,
         ),
         SizedBox(width: padding),
         PortfolioIconButton(
-          onPressed: () => LaunchURL.of(''),
-          icon: Icons.cloud,
+          onPressed: () => LaunchURL.of(Strings.linkedin),
+          image: Images.linkedin,
         ),
         SizedBox(width: padding),
         PortfolioIconButton(
-          onPressed: () => LaunchURL.of(''),
-          icon: Icons.cloud,
+          onPressed: () => LaunchURL.of(Strings.instagram),
+          image: Images.instagram,
         ),
         SizedBox(width: padding),
         PortfolioIconButton(
-          onPressed: () => LaunchURL.of(''),
-          icon: Icons.cloud,
+          onPressed: () => LaunchURL.of(Strings.youtube),
+          image: Images.youtube,
         ),
       ],
     );

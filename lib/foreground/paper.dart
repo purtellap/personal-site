@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ps/res/res.dart';
-import 'package:ps/util/url.dart';
+import 'package:ps/util/services.dart';
 
 class Paper extends StatelessWidget {
   final Size cts;

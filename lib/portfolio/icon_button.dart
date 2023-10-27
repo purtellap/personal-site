@@ -3,8 +3,10 @@ import '../res/res.dart';
 
 class PortfolioIconButton extends StatefulWidget {
   final void Function()? onPressed;
-  final IconData icon;
-  PortfolioIconButton({required this.onPressed, required this.icon});
+  final IconData? icon;
+  final String? image;
+
+  PortfolioIconButton({required this.onPressed, this.icon, this.image});
 
   @override
   _PortfolioIconButtonState createState() => _PortfolioIconButtonState();
@@ -84,7 +86,13 @@ class _PortfolioIconButtonState extends State<PortfolioIconButton>
               ).createShader(
                 Rect.fromPoints(bounds.topLeft, bounds.bottomRight),
               ),
-              child: Icon(widget.icon, size: 20),
+              child: widget.image != null
+                  ? Image.asset(
+                      widget.image!,
+                      width: 20,
+                      height: 20,
+                    )
+                  : Icon(widget.icon, size: 20),
             ),
           ),
         ),
