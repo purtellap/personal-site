@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:ps/portfolio/widgets.dart';
+import 'package:ps/util/services.dart';
 
 import '../res/res.dart';
 
-class ContactWidget extends StatelessWidget {
+class ContactWidget extends StatefulWidget {
   ContactWidget({Key? key}) : super(key: key);
 
+  @override
+  State<ContactWidget> createState() => _ContactWidgetState();
+}
+
+class _ContactWidgetState extends State<ContactWidget> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final messageController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.addListener(() => setState(() {}));
+    emailController.addListener(() => setState(() {}));
+    messageController.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    messageController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +162,27 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final valid = emailController.text != '' && messageController.text != '';
+    final color =
+        valid ? ThemeColors.textColor : ThemeColors.textColor.withOpacity(0.5);
     return OnHover(
+      translate: valid,
+      updatePointer: valid,
       builder: (isHovered) {
         return InkWell(
-          onTap: () {},
+          onTap: valid
+              ? () {
+                  final success = ContactSubmission.submitForm(
+                    name: nameController.text,
+                    email: emailController.text,
+                    message: messageController.text,
+                  );
+                  if (!success) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(Strings.errorSending)));
+                  }
+                }
+              : null,
           borderRadius: BorderRadius.circular(8),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -153,10 +192,11 @@ class _SubmitButton extends StatelessWidget {
               children: [
                 Text(
                   Strings.sendButton,
-                  style: TextStyles.portfolio.copyWith(fontSize: 12),
+                  style:
+                      TextStyles.portfolio.copyWith(fontSize: 12, color: color),
                 ),
                 const SizedBox(width: 16),
-                Icon(Icons.send_rounded, size: 16),
+                Icon(Icons.send_rounded, size: 16, color: color),
               ],
             ),
           ),

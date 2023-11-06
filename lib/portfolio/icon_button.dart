@@ -89,8 +89,8 @@ class _PortfolioIconButtonState extends State<PortfolioIconButton>
               child: widget.image != null
                   ? Image.asset(
                       widget.image!,
-                      width: 20,
-                      height: 20,
+                      width: 18,
+                      height: 18,
                     )
                   : Icon(widget.icon, size: 20),
             ),

@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ps/audio/audio_provider.dart';
 import 'package:ps/res/res.dart';
 
 import 'dialogue_provider.dart';
@@ -17,17 +16,22 @@ class InputDialogue extends StatelessWidget {
 
     double w = widthS;
 
-    double fontSize = min(12 + w/200, 30);
+    double fontSize = min(12 + w / 200, 30);
 
     DialogueProvider p = context.read<DialogueProvider>();
     double inputW = fontSize * 16;
     double inputH = fontSize * 3;
 
     return AnimatedPositioned(
-      top: !p.getIsInputVisible() ? cts.height: cts.height - inputH,
+      top: !p.getIsInputVisible() ? cts.height : cts.height - inputH,
       duration: Duration(seconds: 1),
       curve: Curves.easeInOut,
-      child: Container(color:  (p.getIsInputVisible() || p.isInputAnimOver) ? Color(0xaa000000) : Colors.transparent, width: w, height: inputH,
+      child: Container(
+        color: (p.getIsInputVisible() || p.isInputAnimOver)
+            ? Color(0xaa000000)
+            : Colors.transparent,
+        width: w,
+        height: inputH,
         child: IgnorePointer(
           ignoring: !p.getIsInputVisible(),
           child: AnimatedOpacity(
@@ -41,13 +45,17 @@ class InputDialogue extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      OptionButton(fontSize: fontSize, s: Strings.talk,
-                        onTap: (){
+                      OptionButton(
+                        fontSize: fontSize,
+                        s: Strings.talk,
+                        onTap: () {
                           p.talk();
                         },
                       ),
-                      OptionButton(fontSize: fontSize, s: Strings.ask,
-                        onTap: (){
+                      OptionButton(
+                        fontSize: fontSize,
+                        s: Strings.ask,
+                        onTap: () {
                           p.ask();
                         },
                       ),
@@ -73,29 +81,33 @@ class QuestionDialogue extends StatelessWidget {
 
     double w = widthS;
 
-    double fontSize = min(12 + w/200, 30);
+    double fontSize = min(12 + w / 200, 30);
 
     DialogueProvider p = context.read<DialogueProvider>();
-    AudioProvider a = context.read<AudioProvider>();
+    // AudioProvider a = context.read<AudioProvider>();
     double inputW = fontSize * 32;
     double inputH = fontSize * 3;
 
     List<OptionButton> questions = [];
-    for (int i = 0; i < Strings.questions.length; i++){
-      questions.add(
-        OptionButton(fontSize: fontSize, s: Strings.questions[i],
-          onTap: (){
+    for (int i = 0; i < Strings.questions.length; i++) {
+      questions.add(OptionButton(
+          fontSize: fontSize,
+          s: Strings.questions[i],
+          onTap: () {
             p.answer(Strings.answers[i]);
-          }
-        )
-      );
+          }));
     }
 
     return AnimatedPositioned(
-      top: !p.getIsQuestionVisible() ? cts.height: cts.height - inputH,
+      top: !p.getIsQuestionVisible() ? cts.height : cts.height - inputH,
       duration: Duration(seconds: 1),
       curve: Curves.easeInOut,
-      child: Container(color:  (p.getIsQuestionVisible() || p.isQuestionAnimOver) ? Color(0xaa000000) : Colors.transparent, width: w, height: inputH,
+      child: Container(
+        color: (p.getIsQuestionVisible() || p.isQuestionAnimOver)
+            ? Color(0xaa000000)
+            : Colors.transparent,
+        width: w,
+        height: inputH,
         child: IgnorePointer(
           ignoring: !p.getIsQuestionVisible(),
           child: AnimatedOpacity(
@@ -107,7 +119,9 @@ class QuestionDialogue extends StatelessWidget {
                 Container(
                   width: inputW,
                   child: Row(
-                    mainAxisAlignment: inputW < 500 ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: inputW < 500
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.spaceBetween,
                     children: questions,
                   ),
                 ),
@@ -121,7 +135,9 @@ class QuestionDialogue extends StatelessWidget {
 }
 
 class OptionButton extends StatefulWidget {
-  const OptionButton({Key? key, required this.fontSize, required this.s, required this.onTap}) : super(key: key);
+  const OptionButton(
+      {Key? key, required this.fontSize, required this.s, required this.onTap})
+      : super(key: key);
   final double fontSize;
   final String s;
   final Function()? onTap;
@@ -131,27 +147,33 @@ class OptionButton extends StatefulWidget {
 }
 
 class _OptionButtonState extends State<OptionButton> {
-
   bool isHover = false;
 
   @override
   Widget build(BuildContext context) {
-
-    TextStyle textStyle = TextStyle(color: Colors.white, fontSize: widget.fontSize,
-        fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100);
-    TextStyle textStyleHover = TextStyle(color: Color(0xff00ffff), fontSize: widget.fontSize,
-        fontFamily: 'retro', letterSpacing: .8, fontWeight: FontWeight.w100);
+    TextStyle textStyle = TextStyle(
+        color: Colors.white,
+        fontSize: widget.fontSize,
+        fontFamily: 'retro',
+        letterSpacing: .8,
+        fontWeight: FontWeight.w100);
+    TextStyle textStyleHover = TextStyle(
+        color: Color(0xff00ffff),
+        fontSize: widget.fontSize,
+        fontFamily: 'retro',
+        letterSpacing: .8,
+        fontWeight: FontWeight.w100);
 
     return GestureDetector(
       onTap: widget.onTap,
       child: MouseRegion(
           cursor: SystemMouseCursors.click,
-          onEnter: (e){
+          onEnter: (e) {
             setState(() {
               isHover = true;
             });
           },
-          onExit: (e){
+          onExit: (e) {
             setState(() {
               isHover = false;
             });
@@ -159,9 +181,12 @@ class _OptionButtonState extends State<OptionButton> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             //child: Text(widget.s, style: isHover ? textStyleHover : textStyle),
-            child: AnimatedDefaultTextStyle(style: isHover ? textStyleHover : textStyle, duration: Duration(milliseconds: 200), child: Text(widget.s),),
-          )
-      ),
+            child: AnimatedDefaultTextStyle(
+              style: isHover ? textStyleHover : textStyle,
+              duration: Duration(milliseconds: 200),
+              child: Text(widget.s),
+            ),
+          )),
     );
   }
 }

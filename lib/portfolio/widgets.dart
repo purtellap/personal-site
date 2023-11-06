@@ -5,7 +5,7 @@ import 'package:ps/portfolio/icon_button.dart';
 import 'package:ps/portfolio/stars.dart';
 import 'package:ps/res/res.dart';
 
-import '../util/services.dart';
+import '../util/url.dart';
 import 'astronaut.dart';
 
 class HeroCard extends StatelessWidget {
@@ -162,22 +162,25 @@ class StatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = ThemeColors
+        .secondaryTextColor; //Color(0xffC0C0C0); //Colors.white.withOpacity(0.5);
+    final backgroundColor = ThemeColors.backgroundColor.withOpacity(0.25);
     return Material(
-      color: ThemeColors.backgroundColor,
+      color: backgroundColor,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         onTap: onPressed,
-        highlightColor: Color(0x10ffffff),
-        hoverColor: Color(0x10ffffff),
+        highlightColor: Color(0x08ffffff),
+        hoverColor: Color(0x08ffffff),
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(children: [
-            Icon(icon, size: 20),
+            Icon(icon, size: 20, color: textColor),
             SizedBox(width: 8),
             Text(text,
-                style: TextStyles.portfolio.copyWith(
-                    fontSize: 14, color: Colors.white.withOpacity(0.8))),
+                style: TextStyles.portfolio
+                    .copyWith(fontSize: 14, color: textColor)),
           ]),
         ),
       ),

@@ -124,6 +124,8 @@ class Strings {
   static const String emailField = 'Email';
   static const String messageField = 'Message';
   static const String sendButton = 'Send';
+  static const String requiredFields = 'Please fill out the required fields';
+  static const String errorSending = 'There was an error sending your message';
 }
 
 class Images {
