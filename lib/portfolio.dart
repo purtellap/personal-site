@@ -34,7 +34,7 @@ class Portfolio extends StatelessWidget {
                     const SizedBox(width: 24),
                     Expanded(
                         child: SelectableText(Strings.portfolioTitle,
-                            style: TextStyles.portfolio)),
+                            style: TextStyles.portfolio2)),
                     PortfolioIconButton(
                       icon: Icons.description_rounded,
                       onPressed: () => LaunchURL.of(Strings.resumeLink),
@@ -43,7 +43,7 @@ class Portfolio extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 HeroCard(),
-                Dimens.sectionHeight,
+                const SizedBox(height: 48),
                 Header(
                   title: Strings.projectsTitle,
                   quote: Strings.projectsQuote,
@@ -64,13 +64,12 @@ class Portfolio extends StatelessWidget {
                 ),
                 Dimens.subSectionHeight,
                 ContactWidget(),
+                Dimens.sectionHeight,
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 96,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Footer(),
                 ),
+                const SizedBox(height: 48),
               ],
             ),
           ),

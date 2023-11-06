@@ -19,9 +19,9 @@ class _ContactWidgetState extends State<ContactWidget> {
   @override
   void initState() {
     super.initState();
-    nameController.addListener(() => setState(() {}));
-    emailController.addListener(() => setState(() {}));
-    messageController.addListener(() => setState(() {}));
+    nameController.addListener(() => mounted ? setState(() {}) : null);
+    emailController.addListener(() => mounted ? setState(() {}) : null);
+    messageController.addListener(() => mounted ? setState(() {}) : null);
   }
 
   @override
@@ -30,6 +30,40 @@ class _ContactWidgetState extends State<ContactWidget> {
     nameController.dispose();
     emailController.dispose();
     messageController.dispose();
+  }
+
+  List<Widget> _buildFreelanceSection() {
+    if (context.isMobileWidth) {
+      return [
+        _FreelanceCategory(name: Strings.frontendDevelopment),
+        const SizedBox(height: 12),
+        _FreelanceCategory(name: Strings.uiuxDesign),
+        const SizedBox(height: 12),
+        _FreelanceCategory(name: Strings.webDevelopment),
+        const SizedBox(height: 12),
+        _FreelanceCategory(name: Strings.technicalConsulting)
+      ];
+    } else {
+      return [
+        Row(
+          children: [
+            Expanded(
+                child: _FreelanceCategory(name: Strings.frontendDevelopment)),
+            const SizedBox(width: 12),
+            Expanded(child: _FreelanceCategory(name: Strings.uiuxDesign))
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(child: _FreelanceCategory(name: Strings.webDevelopment)),
+            const SizedBox(width: 12),
+            Expanded(
+                child: _FreelanceCategory(name: Strings.technicalConsulting))
+          ],
+        ),
+      ];
+    }
   }
 
   @override
@@ -41,6 +75,10 @@ class _ContactWidgetState extends State<ContactWidget> {
           color: ThemeColors.secondaryBackgroundColor),
       child: Column(
         children: [
+          const SizedBox(height: 24),
+          _FreelanceHeader(),
+          const SizedBox(height: 24),
+          ..._buildFreelanceSection(),
           const SizedBox(height: 24),
           Row(
             children: [
@@ -246,6 +284,109 @@ class _FieldWidget extends StatelessWidget {
           const SizedBox(height: 8),
           child,
         ],
+      ),
+    );
+  }
+}
+
+class _FreelanceHeader extends StatelessWidget {
+  const _FreelanceHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+            child: Text(Strings.freelanceOpportunities,
+                style: TextStyles.portfolio2.copyWith(fontSize: 16))),
+        SizedBox(width: 16),
+        Text(Strings.status,
+            style: TextStyles.portfolio2.copyWith(fontSize: 12)),
+        SizedBox(width: 16),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            gradient: LinearGradient(
+              colors: ThemeColors.containerGradients,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: _StatusButton(isOpen: true),
+        ),
+      ],
+    );
+  }
+}
+
+class _FreelanceCategory extends StatelessWidget {
+  final String name;
+  const _FreelanceCategory({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          colors: ThemeColors.containerGradients,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        child: Row(
+          // This row keeps text gradient bounds from expanding to width of parent container
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => LinearGradient(
+                colors: ThemeColors.textGradients,
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ).createShader(
+                Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+              ),
+              child: Text(name,
+                  style: TextStyles.portfolio.copyWith(fontSize: 16),
+                  softWrap: true),
+            ),
+            Container(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatusButton extends StatelessWidget {
+  final bool isOpen;
+  const _StatusButton({Key? key, required this.isOpen}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          colors: ThemeColors.openGradients,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Text(
+          isOpen ? Strings.statusOpen : Strings.statusClosed,
+          style: TextStyles.portfolio.copyWith(
+              color: ThemeColors.textColor.withOpacity(0.5),
+              fontSize: 12,
+              letterSpacing: 1,
+              fontWeight: FontWeight.w100),
+        ),
       ),
     );
   }

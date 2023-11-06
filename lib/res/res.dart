@@ -19,7 +19,7 @@ class Dimens {
   static const int totalGradientDuration =
       gradientDuration * openingGradientsNum;
 
-  static const Widget sectionHeight = const SizedBox(height: 48);
+  static const Widget sectionHeight = const SizedBox(height: 96);
   static const Widget subSectionHeight = const SizedBox(height: 32);
 }
 
@@ -28,7 +28,7 @@ class ThemeColors {
   static const Color backgroundColor = Colors.black;
   static const Color secondaryBackgroundColor = Color(0x0affffff);
   static const Color textColor = Colors.white;
-  static const Color secondaryTextColor = Color(0xff272B3C);
+  static const Color secondaryTextColor = Color.fromARGB(255, 96, 102, 127);
 
   // Accent Colors
   static const List<Color> textGradients = [
@@ -38,6 +38,10 @@ class ThemeColors {
   static const List<Color> containerGradients = [
     Color(0xff0D0914),
     Color(0xff090F1F),
+  ];
+  static const List<Color> openGradients = [
+    Color(0x88003630),
+    Color(0x6600710B),
   ];
   static const Color highlightGradientColor =
       Color.fromARGB(255, 255, 173, 244);
@@ -116,6 +120,7 @@ class Strings {
       'For freelance opportunities in:';
   static const String status = 'Status';
   static const String statusOpen = 'OPEN';
+  static const String statusClosed = 'CLOSED';
   static const String frontendDevelopment = 'Frontend Development';
   static const String uiuxDesign = 'UI/UX Design';
   static const String webDevelopment = 'Web development';
@@ -194,6 +199,13 @@ class TextStyles {
     fontSize: 18,
     fontFamily: 'inter',
   );
+
+  static const TextStyle portfolio2 = TextStyle(
+    color: Colors.white,
+    fontSize: 18,
+    fontFamily: 'inter',
+    letterSpacing: 1,
+  );
 }
 
 class Projects {
@@ -204,7 +216,8 @@ class Projects {
     floppyBirb,
   ];
   static Widget scalpSetter = ProjectWidget(
-    imageUrl: Images.ssLogo,
+    iconUrl: Images.ssLogo,
+    previewUrl: '',
     language: Strings.flutter,
     title: 'scalpsetter.com',
     description: 'Risk management calculator tool',
@@ -216,7 +229,8 @@ class Projects {
         'https://play.google.com/store/apps/details?id=com.austinpurtell.scalpsetter',
   );
   static Widget imc = ProjectWidget(
-    imageUrl: Images.imcLogo,
+    iconUrl: Images.imcLogo,
+    previewUrl: '',
     language: Strings.flutter,
     title: 'Intergalactic Mining Co.',
     description: 'Blockchain game',
@@ -227,7 +241,8 @@ class Projects {
     onStoreUrl: 'https://intergalacticmining.co/game',
   );
   static Widget wallpaperFactory = ProjectWidget(
-    imageUrl: Images.wfLogo,
+    iconUrl: Images.wfLogo,
+    previewUrl: '',
     language: Strings.java,
     title: 'Wallpaper Factory',
     description: 'Android live wallpaper app',
@@ -240,7 +255,8 @@ class Projects {
         'https://play.google.com/store/apps/details?id=com.austinpurtell.wf',
   );
   static Widget floppyBirb = ProjectWidget(
-    imageUrl: Images.floppyLogo,
+    iconUrl: Images.floppyLogo,
+    previewUrl: '',
     cover: true,
     language: Strings.unity,
     title: 'Floppy Birb',

@@ -10,7 +10,8 @@ class ProjectWidget extends StatelessWidget {
   final String onPressedUrl;
   final String onStoreUrl;
   final String onGithubUrl;
-  final String imageUrl;
+  final String iconUrl;
+  final String previewUrl;
   final String? downloads;
   final String? rating;
   final String language;
@@ -22,10 +23,11 @@ class ProjectWidget extends StatelessWidget {
     required this.onPressedUrl,
     required this.onStoreUrl,
     required this.onGithubUrl,
-    required this.imageUrl,
+    required this.iconUrl,
     required this.downloads,
     required this.rating,
     required this.language,
+    required this.previewUrl,
     this.cover = false,
   });
 
@@ -65,7 +67,7 @@ class ProjectWidget extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(cover ? 0 : 12),
                           child: Image.asset(
-                            imageUrl,
+                            iconUrl,
                             fit: BoxFit.cover,
                             isAntiAlias: true,
                           ),
@@ -92,7 +94,18 @@ class ProjectWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8),
-                //ImagePreview(url: onPressedUrl),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Container(
+                    height: 128,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: ThemeColors.secondaryBackgroundColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Image.network(previewUrl, fit: BoxFit.cover),
+                  ),
+                ),
                 SizedBox(height: 8),
                 Row(
                   children: [
