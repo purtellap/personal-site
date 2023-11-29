@@ -48,5 +48,6 @@ app.*.map.json
 android
 ios
 build
-#!build/web
-/build/
+
+# firebase
+firebase_options.dart
