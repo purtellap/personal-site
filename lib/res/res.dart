@@ -26,9 +26,9 @@ class Dimens {
 class ThemeColors {
   // Dark Theme
   static const Color backgroundColor = Colors.black;
-  static const Color secondaryBackgroundColor = Color(0x0affffff);
+  static const Color secondaryBackgroundColor = Color(0x10fdfdff);
   static const Color textColor = Colors.white;
-  static const Color secondaryTextColor = Color.fromARGB(255, 96, 102, 127);
+  static const Color secondaryTextColor = Color.fromARGB(200, 104, 89, 191);
 
   // Accent Colors
   static const List<Color> textGradients = [
@@ -131,6 +131,10 @@ class Strings {
   static const String sendButton = 'Send';
   static const String requiredFields = 'Please fill out the required fields';
   static const String errorSending = 'There was an error sending your message';
+  static const String waitSending =
+      'Please wait 5 minutes before sending another message';
+  static const String successSending =
+      'Message sent, thanks for reaching out :)';
 }
 
 class Images {

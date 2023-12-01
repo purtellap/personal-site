@@ -209,16 +209,43 @@ class _SubmitButton extends StatelessWidget {
       builder: (isHovered) {
         return InkWell(
           onTap: valid
-              ? () {
-                  final success = ContactSubmission.submitForm(
-                    name: nameController.text,
-                    email: emailController.text,
-                    message: messageController.text,
-                  );
-                  if (!success) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(Strings.errorSending)));
+              ? () async {
+                  final contactSubmission = ContactSubmission();
+                  final onCooldown = await contactSubmission.isOnCooldown();
+
+                  String text = Strings.waitSending;
+                  if (!onCooldown) {
+                    contactSubmission.saveSubmissionTime();
+                    final success = await contactSubmission.submitForm(
+                      name: nameController.text == ''
+                          ? emailController.text
+                          : nameController.text,
+                      email: emailController.text,
+                      message: messageController.text,
+                    );
+                    if (success) {
+                      nameController.clear();
+                      emailController.clear();
+                      messageController.clear();
+                      text = Strings.successSending;
+                    } else {
+                      text = Strings.errorSending;
+                    }
                   }
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    width: Dimens.maxPortfolioWidth - 32,
+                    content: Center(
+                      child: Text(
+                        text,
+                        style: TextStyles.portfolio2.copyWith(fontSize: 12),
+                      ),
+                    ),
+                    backgroundColor: ThemeColors.secondaryBackgroundColor,
+                    padding: EdgeInsets.all(8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ));
                 }
               : null,
           borderRadius: BorderRadius.circular(8),
