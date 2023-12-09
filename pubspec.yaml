@@ -17,11 +17,9 @@ dependencies:
   firebase_core: ^2.21.0
   cloud_firestore: ^4.12.2
   provider: ^6.0.3
-  url_launcher: ^6.0.18
+  url_launcher: ^6.2.1
   cupertino_icons: ^1.0.2
-  just_audio: ^0.9.27
-  http: ^0.13.6
-  html: ^0.15.4
+  just_audio: ^0.9.36
   shared_preferences: ^2.2.2
 
 dev_dependencies:

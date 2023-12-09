@@ -38,7 +38,7 @@ class HeroCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(32),
               child: Text(
-                '2023',
+                DateTime.now().year.toString(),
                 style: TextStyles.portfolio.copyWith(
                     fontSize: 48,
                     color: Colors.white.withOpacity(0.3),
@@ -55,14 +55,15 @@ class HeroCard extends StatelessWidget {
 class Header extends StatelessWidget {
   final String title;
   final String quote;
-  const Header({
-    Key? key,
-    required this.title,
-    required this.quote,
-  });
+  const Header({Key? key, required this.title, required this.quote});
 
   @override
   Widget build(BuildContext context) {
+    final headerStyle = TextStyles.portfolio
+        .copyWith(fontSize: 54, fontWeight: FontWeight.bold, letterSpacing: 2);
+    final descStyle = TextStyles.portfolio
+        .copyWith(fontSize: 14, color: ThemeColors.headerDescColor);
+
     if (context.isMobileWidth) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -70,18 +71,13 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SelectableText(
-              title,
-              style: TextStyles.portfolio.copyWith(
-                  fontSize: 54, fontWeight: FontWeight.bold, letterSpacing: 2),
-            ),
-            const SizedBox(width: 16),
+            SelectableText(title, style: headerStyle),
+            const SizedBox(width: 32),
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: SelectableText(
                 quote,
-                style: TextStyles.portfolio.copyWith(
-                    fontSize: 16, color: ThemeColors.secondaryTextColor),
+                style: descStyle,
                 maxLines: 2,
               ),
             ),
@@ -92,19 +88,14 @@ class Header extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SelectableText(
-          title,
-          style: TextStyles.portfolio.copyWith(
-              fontSize: 54, fontWeight: FontWeight.bold, letterSpacing: 2),
-        ),
-        const SizedBox(width: 16),
+        SelectableText(title, style: headerStyle),
+        const SizedBox(width: 32),
         Flexible(
           child: Padding(
             padding: const EdgeInsets.only(top: 16),
             child: SelectableText(
               quote,
-              style: TextStyles.portfolio.copyWith(
-                  fontSize: 16, color: ThemeColors.secondaryTextColor),
+              style: descStyle,
               maxLines: 2,
               minLines: 2,
             ),
@@ -162,8 +153,7 @@ class StatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = ThemeColors
-        .secondaryTextColor; //Color(0xffC0C0C0); //Colors.white.withOpacity(0.5);
+    final textColor = ThemeColors.textColor;
     final backgroundColor = ThemeColors.backgroundColor.withOpacity(0.25);
     return Material(
       color: backgroundColor,
@@ -221,17 +211,23 @@ class DesignWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16, horizontal: 24),
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        width: previewWidth,
-                        decoration: BoxDecoration(
-                          color: ThemeColors.secondaryBackgroundColor,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Image.asset(
-                          Images.design,
-                          isAntiAlias: true,
-                          fit: BoxFit.cover,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () => LaunchURL.of(Strings.designPortfolioLink),
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          width: previewWidth,
+                          decoration: BoxDecoration(
+                            color: ThemeColors.secondaryBackgroundColor,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Image.asset(
+                            Images.design,
+                            isAntiAlias: true,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -253,7 +249,7 @@ class DesignWidget extends StatelessWidget {
                               child: SelectableText(
                                 Strings.designDescription,
                                 style: TextStyles.portfolio.copyWith(
-                                    color: Colors.white.withOpacity(0.2),
+                                    color: ThemeColors.secondaryTextColor,
                                     fontSize: 16),
                               ),
                             ),

@@ -86,7 +86,7 @@ class ProjectWidget extends StatelessWidget {
                         SelectableText(
                           description,
                           style: TextStyles.portfolio.copyWith(
-                              color: Colors.white.withOpacity(0.2),
+                              color: ThemeColors.secondaryTextColor,
                               fontSize: 12),
                         ),
                       ],
@@ -96,14 +96,20 @@ class ProjectWidget extends StatelessWidget {
                 SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Container(
-                    height: 128,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: ThemeColors.secondaryBackgroundColor,
-                      borderRadius: BorderRadius.circular(16),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () => LaunchURL.of(onPressedUrl),
+                    child: Container(
+                      height: 128,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: ThemeColors.secondaryBackgroundColor,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Image.network(previewUrl, fit: BoxFit.cover),
                     ),
-                    child: Image.network(previewUrl, fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(height: 8),

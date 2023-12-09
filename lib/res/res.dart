@@ -26,9 +26,10 @@ class Dimens {
 class ThemeColors {
   // Dark Theme
   static const Color backgroundColor = Colors.black;
-  static const Color secondaryBackgroundColor = Color(0x10fdfdff);
+  static const Color secondaryBackgroundColor = Color(0x0dfdfdff);
   static const Color textColor = Colors.white;
-  static const Color secondaryTextColor = Color.fromARGB(200, 104, 89, 191);
+  static const Color secondaryTextColor = Color(0x33ffffff);
+  static const Color headerDescColor = Color(0x40e0e0ff);
 
   // Accent Colors
   static const List<Color> textGradients = [
@@ -39,15 +40,16 @@ class ThemeColors {
     Color(0xff0D0914),
     Color(0xff090F1F),
   ];
+  static const List<Color> freelanceGradients = [
+    Color.fromARGB(255, 19, 15, 26),
+    Color(0xaa090F1F),
+  ];
   static const List<Color> openGradients = [
     Color(0x88003630),
     Color(0x6600710B),
   ];
   static const Color highlightGradientColor =
       Color.fromARGB(255, 255, 173, 244);
-  static const Color underlineColor = Color(0x44000000);
-  static const Color selectionColor = Color(0x66888888);
-  static const Color linkColor = Color(0xaaaaaaaa);
 }
 
 class Strings {
@@ -100,7 +102,7 @@ class Strings {
   // Portfolio
   static const String projectsTitle = 'Projects';
   static const String projectsQuote =
-      '"Where the spirit does not work with the hand, there is no art." - Leonardo da Vinci';
+      '"Where the spirit does not work with the hand, there is no art."\n- Leonardo da Vinci';
   static const String project2Name = 'Other stuff';
   static const String project2Description = 'Description';
   static const String flutter = 'Flutter';
@@ -109,13 +111,13 @@ class Strings {
 
   static const String designsTitle = 'Designs';
   static const String designsQuote =
-      '"Art does not reproduce the visible; rather, it makes visible." - Paul Klee';
+      '"Art does not reproduce the visible; rather, it makes visible."\n- Paul Klee';
   static const String designName = 'My Design Portfolio';
   static const String designDescription = 'A showcase';
 
   static const String contactTitle = 'Contact';
   static const String contactQuote =
-      '"Service to others is the rent you pay for your room here on Earth." - Muhammad Ali';
+      '"Service to others is the rent you pay for your room here on Earth."\n- Muhammad Ali';
   static const String freelanceOpportunities =
       'For freelance opportunities in:';
   static const String status = 'Status';
@@ -221,7 +223,8 @@ class Projects {
   ];
   static Widget scalpSetter = ProjectWidget(
     iconUrl: Images.ssLogo,
-    previewUrl: '',
+    previewUrl:
+        'https://play-lh.googleusercontent.com/jZ3tSfe_ZLa-JbCCQosqnHB9INWIy86WakpcSvnEkMfCD0tOvsgzGpv6_wy71XADwn8K=w832-h470-rw',
     language: Strings.flutter,
     title: 'scalpsetter.com',
     description: 'Risk management calculator tool',
@@ -234,7 +237,8 @@ class Projects {
   );
   static Widget imc = ProjectWidget(
     iconUrl: Images.imcLogo,
-    previewUrl: '',
+    previewUrl:
+        'https://firebasestorage.googleapis.com/v0/b/personal-site-8ebf9.appspot.com/o/imc_banner.png?alt=media&token=b70a6f27-4374-4137-9fb4-5061d6c3df0d',
     language: Strings.flutter,
     title: 'Intergalactic Mining Co.',
     description: 'Blockchain game',
@@ -246,8 +250,10 @@ class Projects {
   );
   static Widget wallpaperFactory = ProjectWidget(
     iconUrl: Images.wfLogo,
-    previewUrl: '',
+    previewUrl:
+        'https://firebasestorage.googleapis.com/v0/b/personal-site-8ebf9.appspot.com/o/wf_banner.png?alt=media&token=96937dec-e669-4c5a-a247-a3c133345208',
     language: Strings.java,
+    cover: true,
     title: 'Wallpaper Factory',
     description: 'Android live wallpaper app',
     downloads: '1000+',
@@ -260,7 +266,8 @@ class Projects {
   );
   static Widget floppyBirb = ProjectWidget(
     iconUrl: Images.floppyLogo,
-    previewUrl: '',
+    previewUrl:
+        'https://play-lh.googleusercontent.com/AY6Z-62TIhzS5FNcTFeRWHB0MT2RTIaJNXhaieKXZxvIr1t6oTl7-g7JlNZKVPS7Yw=w832-h470-rw',
     cover: true,
     language: Strings.unity,
     title: 'Floppy Birb',

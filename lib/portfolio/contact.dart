@@ -144,7 +144,7 @@ class _MessageField extends StatelessWidget {
       autocorrect: false,
       autofocus: false,
       enableSuggestions: false,
-      cursorColor: ThemeColors.secondaryTextColor,
+      cursorColor: ThemeColors.textGradients.first,
       decoration: InputDecoration(
         fillColor: ThemeColors.secondaryBackgroundColor,
         filled: true,
@@ -171,7 +171,7 @@ class _NameEmailField extends StatelessWidget {
       autocorrect: false,
       autofocus: false,
       enableSuggestions: false,
-      cursorColor: ThemeColors.secondaryTextColor,
+      cursorColor: ThemeColors.textGradients.first,
       decoration: InputDecoration(
         fillColor: ThemeColors.secondaryBackgroundColor,
         filled: true,
@@ -210,42 +210,46 @@ class _SubmitButton extends StatelessWidget {
         return InkWell(
           onTap: valid
               ? () async {
-                  final contactSubmission = ContactSubmission();
-                  final onCooldown = await contactSubmission.isOnCooldown();
+                  try {
+                    final contactSubmission = ContactSubmission();
+                    final onCooldown = await contactSubmission.isOnCooldown();
 
-                  String text = Strings.waitSending;
-                  if (!onCooldown) {
-                    contactSubmission.saveSubmissionTime();
-                    final success = await contactSubmission.submitForm(
-                      name: nameController.text == ''
-                          ? emailController.text
-                          : nameController.text,
-                      email: emailController.text,
-                      message: messageController.text,
-                    );
-                    if (success) {
-                      nameController.clear();
-                      emailController.clear();
-                      messageController.clear();
-                      text = Strings.successSending;
-                    } else {
-                      text = Strings.errorSending;
+                    String text = Strings.waitSending;
+                    if (!onCooldown) {
+                      contactSubmission.saveSubmissionTime();
+                      final success = await contactSubmission.submitForm(
+                        name: nameController.text == ''
+                            ? emailController.text
+                            : nameController.text,
+                        email: emailController.text,
+                        message: messageController.text,
+                      );
+                      if (success) {
+                        nameController.clear();
+                        emailController.clear();
+                        messageController.clear();
+                        text = Strings.successSending;
+                      } else {
+                        text = Strings.errorSending;
+                      }
                     }
-                  }
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    behavior: SnackBarBehavior.floating,
-                    width: Dimens.maxPortfolioWidth - 32,
-                    content: Center(
-                      child: Text(
-                        text,
-                        style: TextStyles.portfolio2.copyWith(fontSize: 12),
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      width: Dimens.maxPortfolioWidth - 32,
+                      content: Center(
+                        child: Text(
+                          text,
+                          style: TextStyles.portfolio2.copyWith(fontSize: 12),
+                        ),
                       ),
-                    ),
-                    backgroundColor: ThemeColors.secondaryBackgroundColor,
-                    padding: EdgeInsets.all(8),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                  ));
+                      backgroundColor: ThemeColors.secondaryBackgroundColor,
+                      padding: EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                    ));
+                  } catch (e) {
+                    print(e);
+                  }
                 }
               : null,
           borderRadius: BorderRadius.circular(8),
@@ -330,17 +334,7 @@ class _FreelanceHeader extends StatelessWidget {
         Text(Strings.status,
             style: TextStyles.portfolio2.copyWith(fontSize: 12)),
         SizedBox(width: 16),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            gradient: LinearGradient(
-              colors: ThemeColors.containerGradients,
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-          child: _StatusButton(isOpen: true),
-        ),
+        _StatusButton(isOpen: true),
       ],
     );
   }
@@ -359,7 +353,7 @@ class _FreelanceCategory extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
-          colors: ThemeColors.containerGradients,
+          colors: ThemeColors.freelanceGradients,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -409,7 +403,7 @@ class _StatusButton extends StatelessWidget {
         child: Text(
           isOpen ? Strings.statusOpen : Strings.statusClosed,
           style: TextStyles.portfolio.copyWith(
-              color: ThemeColors.textColor.withOpacity(0.5),
+              color: ThemeColors.textColor.withOpacity(0.8),
               fontSize: 12,
               letterSpacing: 1,
               fontWeight: FontWeight.w100),
