@@ -35,7 +35,7 @@ class PersonalSite extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         //colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
       ),
-      initialRoute: Routes.portfolio,
+      initialRoute: Routes.home,
       routes: {
         Routes.home: (context) => Home(),
         Routes.portfolio: (context) => Portfolio(),

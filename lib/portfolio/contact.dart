@@ -248,7 +248,7 @@ class _SubmitButton extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                     ));
                   } catch (e) {
-                    print(e);
+                    debugPrint(e.toString());
                   }
                 }
               : null,

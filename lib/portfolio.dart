@@ -101,7 +101,7 @@ class _LoadingStackState extends State<_LoadingStack> {
   _loadImages() async {
     for (var image in Images.portfolioImages) {
       await precacheImage(image, context, onError: (exception, stackTrace) {
-        print('Failed to load image: $exception');
+        debugPrint('Failed to load image: $exception');
       });
     }
 
